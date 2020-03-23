@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
 import { environment } from '../environments/environment';
 import { ProfileComponent } from './containers/profile/profile.component';
+import { PostsModule } from './containers/posts/posts.module';
+import { AuthGuard } from './providers/auth.guard';
 
 const config = {
   ...environment.firebaseConfig,
@@ -22,8 +24,10 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
+
+    PostsModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
