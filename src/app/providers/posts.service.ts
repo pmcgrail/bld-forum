@@ -12,7 +12,23 @@ export class PostsService {
     return this.fireStore
       .collection('posts')
       .snapshotChanges()
-      .pipe(map(posts => posts.map(post => post.payload.doc.data())));
+      .pipe(
+        map(posts =>
+          posts.map(post => {
+            return {
+              id: post.payload.doc.id,
+              data: post.payload.doc.data(),
+            };
+          })
+        )
+      );
+  }
+
+  getPost(postId: string) {
+    return this.fireStore
+      .collection('posts')
+      .doc(postId)
+      .valueChanges();
   }
 
   createPost(data) {
