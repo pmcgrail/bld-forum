@@ -4,9 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { PostsRoutingModule } from './posts-routing.module';
 import { NewComponent } from './new/new.component';
+import { PostsComponent } from './posts.component';
 
 @NgModule({
-  declarations: [NewComponent],
+  declarations: [NewComponent, PostsComponent],
   imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule],
 })
 export class PostsModule {}
