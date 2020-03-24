@@ -7,4 +7,5 @@ export class IPostData {
   text: string;
   title: string;
   userId: string;
+  createdDate: Date;
 }
