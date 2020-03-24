@@ -3,6 +3,8 @@
     <a href="posts/new">New Post</a>
   </li>
   <li *ngFor="let post of posts$ | async">
-    <a [href]="'posts/' + post.id">{{ post.data.title }}</a>
+    <a [href]="'posts/' + post.id">
+      {{ post.user.displayName }} - {{ post.data.title }}
+    </a>
   </li>
 </ul>

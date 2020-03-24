@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject, combineLatest, of } from 'rxjs';
+import { switchMap, filter, map } from 'rxjs/operators';
 
-import { PostsService } from '../../providers/posts.service';
-import { IUser } from '../../models/user.interface';
-import { tap } from 'rxjs/operators';
+import { PostsService, UsersService } from '../../providers';
+import { IPost, IUser } from '../../models';
 
 @Component({
   selector: 'app-posts',
@@ -12,13 +12,44 @@ import { tap } from 'rxjs/operators';
 })
 export class PostsComponent implements OnInit, OnDestroy {
   posts$;
+  users$;
   destroy$: Subject<null> = new Subject();
 
-  constructor(private service: PostsService) {}
+  constructor(
+    private service: PostsService,
+    private usersService: UsersService
+  ) {}
+
+  getUser(userId: string) {
+    this.usersService.getUser(userId);
+  }
 
   ngOnInit() {
-    this.posts$ = this.service.getPosts();
-    this.posts$.subscribe(posts => console.log(posts));
+    this.posts$ = this.service.getPosts().pipe(
+      filter(posts => !!posts),
+      switchMap((posts: IPost[]) => {
+        const userIds = posts.reduce((ids, post) => {
+          if (!ids.includes(post.data.userId)) {
+            ids.push(post.data.userId);
+          }
+          return ids;
+        }, []);
+        return combineLatest(
+          of(posts),
+          combineLatest(
+            userIds.map(userId => this.usersService.getUser(userId))
+          )
+        );
+      }),
+      map(([posts, users]: [IPost[], IUser[]]) => {
+        return posts.map((post: IPost) => {
+          return {
+            ...post,
+            user: users.find(user => user.uid === post.data.userId),
+          };
+        });
+      })
+    );
   }
 
   ngOnDestroy() {
