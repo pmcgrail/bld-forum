@@ -7,7 +7,7 @@ import { IUser } from '../models';
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class UserService {
   constructor(private fireStore: AngularFirestore) {}
 
   getUser(userId: string): Observable<IUser> {

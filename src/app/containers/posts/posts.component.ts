@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, combineLatest, of } from 'rxjs';
 import { switchMap, filter, map } from 'rxjs/operators';
 
-import { PostsService, UsersService } from '../../providers';
+import { PostService, UserService } from '../../providers';
 import { IPost, IUser } from '../../models';
 
 @Component({
@@ -16,8 +16,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   destroy$: Subject<null> = new Subject();
 
   constructor(
-    private service: PostsService,
-    private usersService: UsersService
+    private service: PostService,
+    private usersService: UserService
   ) {}
 
   getUser(userId: string) {

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PostsService } from '../../../providers/posts.service';
+import { PostService } from '../../../providers/post.service';
 import { IUser } from '../../../models/user.interface';
 import { AuthService } from '../../../providers/auth.service';
 
@@ -22,7 +22,7 @@ export class NewComponent implements OnInit, OnDestroy {
   userId: string;
   destroy$: Subject<null> = new Subject();
 
-  constructor(private auth: AuthService, private service: PostsService) {
+  constructor(private auth: AuthService, private service: PostService) {
     this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((user: IUser) => {
       this.userName = user.displayName;
       this.userId = user.uid;
@@ -32,6 +32,7 @@ export class NewComponent implements OnInit, OnDestroy {
   createPost() {
     const data = {
       ...this.form.value,
+      date: new Date(),
       userId: this.userId,
     };
     this.service.createPost(data);

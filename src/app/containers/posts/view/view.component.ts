@@ -1,35 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 
-import { PostsService, UsersService } from '../../../providers';
+import { PostService, UserService } from '../../../providers';
 import { IUser, IPostData } from '../../../models';
+import { IComment } from '../../../models/comment.interface';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
   post$: Observable<IPostData>;
-  user$: Observable<IUser>;
+  comments$: Observable<any>;
   postId: string;
+  userId: string;
+  userName: string;
+  destroy$: Subject<null> = new Subject();
+
   constructor(
     private route: ActivatedRoute,
-    private service: PostsService,
-    private usersService: UsersService
+    private service: PostService,
+    private usersService: UserService,
+    private postsService: PostService
   ) {
     this.postId = this.route.snapshot.params['postId'];
   }
 
+  onSaveComment(text: string) {
+    const data: IComment = {
+      text,
+      userId: this.userId,
+      createdDate: new Date(),
+    };
+    this.postsService.createComment(this.postId, data);
+  }
+
   ngOnInit() {
     this.post$ = this.service.getPost(this.postId);
-    this.user$ = this.post$.pipe(
-      switchMap((post: IPostData) => {
-        return this.usersService.getUser(post.userId);
-      }),
-      map((user: IUser) => user)
-    );
+    this.comments$ = this.service.getComments(this.postId);
+    this.post$
+      .pipe(
+        switchMap((post: IPostData) => {
+          return this.usersService.getUser(post.userId);
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((user: IUser) => {
+        this.userId = user.uid;
+        this.userName = user.displayName;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(null);
+    this.destroy$.complete();
   }
 }

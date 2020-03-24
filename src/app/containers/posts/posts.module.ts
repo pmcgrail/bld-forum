@@ -6,9 +6,15 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { NewComponent } from './new/new.component';
 import { PostsComponent } from './posts.component';
 import { ViewComponent } from './view/view.component';
+import { CommentFormComponent } from '../../components/comment-form/comment-form.component';
 
 @NgModule({
-  declarations: [NewComponent, PostsComponent, ViewComponent],
+  declarations: [
+    NewComponent,
+    PostsComponent,
+    ViewComponent,
+    CommentFormComponent,
+  ],
   imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule],
 })
 export class PostsModule {}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IPost, IPostData } from '../models';
@@ -8,7 +8,7 @@ import { IPost, IPostData } from '../models';
 @Injectable({
   providedIn: 'root',
 })
-export class PostsService {
+export class PostService {
   posts$: Observable<any>;
 
   constructor(private fireStore: AngularFirestore) {
@@ -32,10 +32,27 @@ export class PostsService {
     return this.fireStore
       .collection('posts')
       .doc<IPostData>(postId)
-      .valueChanges();
+      .valueChanges()
+      .pipe(tap(post => console.log(post)));
   }
 
   createPost(data) {
     return this.fireStore.collection('posts').add(data);
+  }
+
+  getComments(postId: string): Observable<any> {
+    return this.fireStore
+      .collection('posts')
+      .doc(postId)
+      .collection('comments')
+      .valueChanges();
+  }
+
+  createComment(postId: string, data) {
+    return this.fireStore
+      .collection('posts')
+      .doc(postId)
+      .collection('comments')
+      .add(data);
   }
 }

@@ -1,6 +1,14 @@
 <div *ngIf="post$ | async as post">
+  <div>Name: {{ userName }}</div>
   <div>
     {{ post | json }}
   </div>
-  <div>Name: {{ (user$ | async).displayName }}</div>
+  <div *ngIf="comments$ | async as comments">
+    <div *ngFor="let comment of comments">
+      {{ comment | json }}
+    </div>
+  </div>
+  <div>
+    <app-comment-form (saveComment)="onSaveComment($event)"></app-comment-form>
+  </div>
 </div>
