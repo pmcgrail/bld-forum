@@ -1,33 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { IPost, IPostData } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
-  constructor(private fireStore: AngularFirestore) {}
+  posts$: Observable<any>;
 
-  getPosts() {
-    return this.fireStore
-      .collection('posts')
-      .snapshotChanges()
-      .pipe(
-        map(posts =>
-          posts.map(post => {
-            return {
-              id: post.payload.doc.id,
-              data: post.payload.doc.data(),
-            };
-          })
-        )
-      );
+  constructor(private fireStore: AngularFirestore) {
+    this.posts$ = this.fireStore.collection('posts').snapshotChanges();
   }
 
-  getPost(postId: string) {
+  getPosts(): Observable<IPost[]> {
+    return this.posts$.pipe(
+      map(posts =>
+        posts.map(post => {
+          return {
+            id: post.payload.doc.id,
+            data: post.payload.doc.data(),
+          };
+        })
+      )
+    );
+  }
+
+  getPost(postId: string): Observable<IPostData> {
     return this.fireStore
       .collection('posts')
-      .doc(postId)
+      .doc<IPostData>(postId)
       .valueChanges();
   }
 
