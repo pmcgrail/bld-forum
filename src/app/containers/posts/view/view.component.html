@@ -1,3 +1,6 @@
-<div>
-  {{ post$ | async | json }}
+<div *ngIf="post$ | async as post">
+  <div>
+    {{ post | json }}
+  </div>
+  <div>Name: {{ (user$ | async).displayName }}</div>
 </div>
