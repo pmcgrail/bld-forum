@@ -33,7 +33,7 @@
   - [ ] util functions?
 - [ ] ui components
   - [ ] post/comment cards
-  - [ ] list view
+  - [x] list view
   - [ ] nav header
 - [ ] responsive layouts
 - [ ] login container
