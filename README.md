@@ -5,7 +5,6 @@
 ### users (from Google Auth)
 
 - displayName
-- email
 - photoURL
 - uid
 
