@@ -1,11 +1,9 @@
 <div *ngIf="post$ | async as post">
   <app-post-card [post]="post"> </app-post-card>
   <div *ngIf="comments$ | async as comments">
-    <div *ngFor="let comment of comments">
-      <div>Date: {{ comment.createdDate | date: 'MM-dd-yyyy' }}</div>
-      <div>{{ comment.userName }}</div>
-      <div>{{ comment.text }}</div>
-    </div>
+    <ng-container *ngFor="let comment of comments">
+      <app-comment-card [comment]="comment"></app-comment-card>
+    </ng-container>
   </div>
   <div>
     <app-comment-form (saveComment)="onSaveComment($event)"></app-comment-form>

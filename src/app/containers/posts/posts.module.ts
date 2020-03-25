@@ -9,6 +9,7 @@ import { ViewComponent } from './view/view.component';
 import { CommentFormComponent } from '../../components/comment-form/comment-form.component';
 import { ListModule } from '../../components/list/list.module';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
+import { CommentCardComponent } from 'src/app/components/comment-card/comment-card.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PostCardComponent } from '../../components/post-card/post-card.componen
     ViewComponent,
     CommentFormComponent,
     PostCardComponent,
+    CommentCardComponent,
   ],
   imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, ListModule],
 })
