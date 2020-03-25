@@ -1,4 +1,6 @@
-<div>
-  <input type="text" [formControl]="text" />
-  <button (click)="onSaveComment()">Save</button>
+<div class="container">
+  <textarea type="text" [formControl]="text"></textarea>
+  <button [disabled]="!text.valid" (click)="onSaveComment()">
+    <i class="material-icons">keyboard_arrow_right</i>
+  </button>
 </div>
