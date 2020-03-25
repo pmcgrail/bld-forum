@@ -1,62 +1,81 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
-import { PostService, UserService, CommentService } from '../../../providers';
-import { IUser, IPostData } from '../../../models';
-import { IComment } from '../../../models/comment.interface';
+import { IUser, IPostData, IComment } from '../../../models';
+
+import {
+  PostService,
+  UserService,
+  CommentService,
+  AuthService,
+} from '../../../providers';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
 })
-export class ViewComponent implements OnInit, OnDestroy {
-  post$: Observable<IPostData>;
-  comments$: Observable<any>;
+export class ViewComponent implements OnInit {
+  authId: string;
   postId: string;
-  userId: string;
-  userName: string;
-  destroy$: Subject<null> = new Subject();
+  post$: Observable<IPostData>;
+  comments$: Observable<IComment[]>;
 
   constructor(
     private route: ActivatedRoute,
+    private auth: AuthService,
     private service: PostService,
-    private postService: PostService,
     private userService: UserService,
     private commentService: CommentService
   ) {
+    this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
+      this.authId = authUser.uid;
+    });
     this.postId = this.route.snapshot.params['postId'];
   }
 
   onSaveComment(text: string) {
     const data: IComment = {
       text,
-      userId: this.userId,
+      userId: this.authId,
       createdDate: new Date(),
     };
     this.commentService.createComment(this.postId, data);
   }
 
   ngOnInit() {
-    this.post$ = this.service.getPost(this.postId);
-    this.comments$ = this.commentService.getComments(this.postId);
-    this.post$
-      .pipe(
-        switchMap((post: IPostData) => {
-          return this.userService.getUser(post.userId);
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((user: IUser) => {
-        this.userId = user.uid;
-        this.userName = user.displayName;
-      });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(null);
-    this.destroy$.complete();
+    this.post$ = this.service.getPost(this.postId).pipe(
+      switchMap((post: IPostData) =>
+        combineLatest(of(post), this.userService.getUser(post.userId))
+      ),
+      map(([post, user]: [IPostData, IUser]) => {
+        return {
+          ...post,
+          userName: user.displayName,
+        };
+      })
+    );
+    this.comments$ = this.commentService.getComments(this.postId).pipe(
+      switchMap((comments: IComment[]) => {
+        const userIds = comments.reduce((ids, comment) => {
+          if (!ids.includes(comment.userId)) {
+            ids.push(comment.userId);
+          }
+          return ids;
+        }, []);
+        return combineLatest(of(comments), this.userService.getUsers(userIds));
+      }),
+      map(([comments, users]: [IComment[], IUser[]]) => {
+        return comments.map((comment: IComment) => {
+          return {
+            ...comment,
+            userName: users.find(user => user.uid === comment.userId)
+              .displayName,
+          };
+        });
+      })
+    );
   }
 }

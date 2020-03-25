@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { IUser } from '../models';
 
@@ -14,6 +15,15 @@ export class UserService {
     return this.fireStore
       .collection('users')
       .doc<IUser>(userId)
-      .valueChanges();
+      .get()
+      .pipe(map((doc: DocumentSnapshot<IUser>) => doc.data()));
+  }
+
+  getUsers(userIds: string[]): Observable<any> {
+    console.log(userIds);
+    return this.fireStore
+      .collection<IUser>('users', ref => ref.where('uid', 'in', userIds))
+      .get()
+      .pipe(map(collection => collection.docs.map(doc => doc.data)));
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { IComment } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,11 @@ import { map } from 'rxjs/operators';
 export class CommentService {
   constructor(private fireStore: AngularFirestore) {}
 
-  getComments(postId: string): Observable<any> {
+  getComments(postId: string): Observable<IComment[]> {
     return this.fireStore
       .collection('posts')
       .doc(postId)
-      .collection('comments', ref => ref.orderBy('createdDate'))
+      .collection<IComment[]>('comments', ref => ref.orderBy('createdDate'))
       .valueChanges()
       .pipe(
         map((comments: any) => {
