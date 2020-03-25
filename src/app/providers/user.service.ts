@@ -20,9 +20,11 @@ export class UserService {
   }
 
   getUsers(userIds: string[]): Observable<any> {
-    return this.fireStore
-      .collection<IUser>('users', ref => ref.where('uid', 'in', userIds))
-      .get()
-      .pipe(map(collection => collection.docs.map(doc => doc.data)));
+    return userIds.length
+      ? this.fireStore
+          .collection<IUser>('users', ref => ref.where('uid', 'in', userIds))
+          .get()
+          .pipe(map(query => query.docs.map(doc => doc.data())))
+      : undefined;
   }
 }

@@ -15,13 +15,10 @@ export class PostsComponent implements OnInit, OnDestroy {
   users$;
   destroy$: Subject<null> = new Subject();
 
-  constructor(
-    private service: PostService,
-    private usersService: UserService
-  ) {}
+  constructor(private service: PostService, private userService: UserService) {}
 
   getUser(userId: string) {
-    this.usersService.getUser(userId);
+    this.userService.getUser(userId);
   }
 
   ngOnInit() {
@@ -34,12 +31,7 @@ export class PostsComponent implements OnInit, OnDestroy {
           }
           return ids;
         }, []);
-        return combineLatest(
-          of(posts),
-          combineLatest(
-            userIds.map(userId => this.usersService.getUser(userId))
-          )
-        );
+        return combineLatest(of(posts), this.userService.getUsers(userIds));
       }),
       map(([posts, users]: [IPost[], IUser[]]) => {
         return posts.map((post: IPost) => {
