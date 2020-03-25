@@ -4,4 +4,5 @@ export class IPost {
   title: string;
   userId: string;
   createdDate: Date;
+  userName?: string;
 }
