@@ -20,7 +20,6 @@ export class UserService {
   }
 
   getUsers(userIds: string[]): Observable<any> {
-    console.log(userIds);
     return this.fireStore
       .collection<IUser>('users', ref => ref.where('uid', 'in', userIds))
       .get()
