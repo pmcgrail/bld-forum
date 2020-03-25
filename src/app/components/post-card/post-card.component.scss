@@ -1,0 +1,34 @@
+.container {
+  padding: 2em;
+  border-radius: 0.25em;
+  background: #ffffff;
+
+  display: grid;
+  grid-template-areas:
+    'user date'
+    'title title'
+    'text text';
+
+  .user {
+    grid-area: user;
+    color: #a0a0a0;
+    font-size: 0.8em;
+  }
+
+  .date {
+    grid-area: date;
+    color: #a0a0a0;
+    font-size: 0.8em;
+    text-align: end;
+  }
+
+  .title {
+    grid-area: title;
+    color: #404040;
+  }
+
+  .text {
+    grid-area: text;
+    color: #404040;
+  }
+}

@@ -8,6 +8,7 @@ import { PostsComponent } from './posts.component';
 import { ViewComponent } from './view/view.component';
 import { CommentFormComponent } from '../../components/comment-form/comment-form.component';
 import { ListModule } from '../../components/list/list.module';
+import { PostCardComponent } from '../../components/post-card/post-card.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ListModule } from '../../components/list/list.module';
     PostsComponent,
     ViewComponent,
     CommentFormComponent,
+    PostCardComponent,
   ],
   imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, ListModule],
 })
