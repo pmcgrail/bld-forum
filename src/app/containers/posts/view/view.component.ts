@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { IUser, IPostData, IComment } from '../../../models';
+import { IUser, IPost, IComment } from '../../../models';
 
 import {
   PostService,
@@ -20,7 +20,7 @@ import {
 export class ViewComponent implements OnInit {
   authId: string;
   postId: string;
-  post$: Observable<IPostData>;
+  post$: Observable<IPost>;
   comments$: Observable<IComment[]>;
 
   constructor(
@@ -47,10 +47,10 @@ export class ViewComponent implements OnInit {
 
   ngOnInit() {
     this.post$ = this.service.getPost(this.postId).pipe(
-      switchMap((post: IPostData) =>
+      switchMap((post: IPost) =>
         combineLatest(of(post), this.userService.getUser(post.userId))
       ),
-      map(([post, user]: [IPostData, IUser]) => {
+      map(([post, user]: [IPost, IUser]) => {
         return {
           ...post,
           userName: user.displayName,

@@ -2,8 +2,8 @@
   <list-item [link]="'posts/new'" [text]="'New Post'"> </list-item>
   <ng-container *ngFor="let post of posts$ | async">
     <list-item
-      [link]="'posts/' + post.id"
-      [text]="post.data.title"
+      [link]="'posts/' + post.uid"
+      [text]="post.title"
       [subtext]="post.userName"
     >
     </list-item>

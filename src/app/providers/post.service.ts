@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { IPost, IPostData } from '../models';
+import { IPost } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -21,19 +21,20 @@ export class PostService {
     return this.posts$.pipe(
       map(posts =>
         posts.map(post => {
+          const data = post.payload.doc.data();
           return {
-            id: post.payload.doc.id,
-            data: post.payload.doc.data(),
+            ...data,
+            uid: post.payload.doc.id,
           };
         })
       )
     );
   }
 
-  getPost(postId: string): Observable<IPostData> {
+  getPost(postId: string): Observable<IPost> {
     return this.fireStore
       .collection('posts')
-      .doc<IPostData>(postId)
+      .doc<IPost>(postId)
       .valueChanges()
       .pipe(
         map((post: any) => {

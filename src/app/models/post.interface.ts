@@ -1,9 +1,5 @@
 export class IPost {
-  id: string;
-  data: IPostData;
-}
-
-export class IPostData {
+  uid?: string;
   text: string;
   title: string;
   userId: string;

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { PostService } from '../../../providers/post.service';
 import { IUser } from '../../../models/user.interface';
 import { AuthService } from '../../../providers/auth.service';
-import { IPostData } from '../../../models';
+import { IPost } from '../../../models';
 
 @Component({
   selector: 'app-new',
@@ -36,7 +36,7 @@ export class NewComponent implements OnInit, OnDestroy {
   }
 
   createPost() {
-    const data: IPostData = {
+    const data: IPost = {
       ...this.form.value,
       userId: this.userId,
       createdDate: new Date(),

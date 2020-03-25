@@ -26,8 +26,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       filter(posts => !!posts),
       switchMap((posts: IPost[]) => {
         const userIds = posts.reduce((ids, post) => {
-          if (!ids.includes(post.data.userId)) {
-            ids.push(post.data.userId);
+          if (!ids.includes(post.userId)) {
+            ids.push(post.userId);
           }
           return ids;
         }, []);
@@ -37,8 +37,7 @@ export class PostsComponent implements OnInit, OnDestroy {
         return posts.map((post: IPost) => {
           return {
             ...post,
-            userName: users.find(user => user.uid === post.data.userId)
-              .displayName,
+            userName: users.find(user => user.uid === post.userId).displayName,
           };
         });
       })
