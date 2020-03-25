@@ -1,0 +1,25 @@
+li {
+  padding: 1em;
+  border-bottom: 1px solid #d0d0d0;
+
+  a {
+    display: grid;
+    align-items: center;
+    text-decoration: none;
+    grid-template-columns: 50% 50%;
+
+    .text {
+      font-size: 1.2rem;
+      color: #404040;
+    }
+
+    .subtext {
+      font-size: 0.8rem;
+      color: #808080;
+    }
+  }
+}
+
+:host:last-child li {
+  border-bottom: 0;
+}
