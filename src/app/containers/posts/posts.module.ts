@@ -7,6 +7,7 @@ import { NewComponent } from './new/new.component';
 import { PostsComponent } from './posts.component';
 import { ViewComponent } from './view/view.component';
 import { CommentFormComponent } from '../../components/comment-form/comment-form.component';
+import { ListModule } from '../../components/list/list.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { CommentFormComponent } from '../../components/comment-form/comment-form
     ViewComponent,
     CommentFormComponent,
   ],
-  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, ListModule],
 })
 export class PostsModule {}

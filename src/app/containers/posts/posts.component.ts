@@ -37,7 +37,8 @@ export class PostsComponent implements OnInit, OnDestroy {
         return posts.map((post: IPost) => {
           return {
             ...post,
-            user: users.find(user => user.uid === post.data.userId),
+            userName: users.find(user => user.uid === post.data.userId)
+              .displayName,
           };
         });
       })
