@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 
-import { PostService, UserService } from '../../../providers';
+import { PostService, UserService, CommentService } from '../../../providers';
 import { IUser, IPostData } from '../../../models';
 import { IComment } from '../../../models/comment.interface';
 
@@ -23,8 +23,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private service: PostService,
-    private usersService: UserService,
-    private postsService: PostService
+    private postService: PostService,
+    private userService: UserService,
+    private commentService: CommentService
   ) {
     this.postId = this.route.snapshot.params['postId'];
   }
@@ -35,16 +36,16 @@ export class ViewComponent implements OnInit, OnDestroy {
       userId: this.userId,
       createdDate: new Date(),
     };
-    this.postsService.createComment(this.postId, data);
+    this.commentService.createComment(this.postId, data);
   }
 
   ngOnInit() {
     this.post$ = this.service.getPost(this.postId);
-    this.comments$ = this.service.getComments(this.postId);
+    this.comments$ = this.commentService.getComments(this.postId);
     this.post$
       .pipe(
         switchMap((post: IPostData) => {
-          return this.usersService.getUser(post.userId);
+          return this.userService.getUser(post.userId);
         }),
         takeUntil(this.destroy$)
       )

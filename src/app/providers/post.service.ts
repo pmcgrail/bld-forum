@@ -41,20 +41,4 @@ export class PostService {
   createPost(data) {
     return this.fireStore.collection('posts').add(data);
   }
-
-  getComments(postId: string): Observable<any> {
-    return this.fireStore
-      .collection('posts')
-      .doc(postId)
-      .collection('comments')
-      .valueChanges();
-  }
-
-  createComment(postId: string, data) {
-    return this.fireStore
-      .collection('posts')
-      .doc(postId)
-      .collection('comments')
-      .add(data);
-  }
 }
