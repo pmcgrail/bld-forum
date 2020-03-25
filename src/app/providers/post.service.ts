@@ -12,7 +12,9 @@ export class PostService {
   posts$: Observable<any>;
 
   constructor(private fireStore: AngularFirestore) {
-    this.posts$ = this.fireStore.collection('posts').snapshotChanges();
+    this.posts$ = this.fireStore
+      .collection('posts', ref => ref.orderBy('createdDate', 'desc'))
+      .snapshotChanges();
   }
 
   getPosts(): Observable<IPost[]> {
