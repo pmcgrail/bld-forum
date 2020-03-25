@@ -29,6 +29,15 @@
 - [x] interfaces
 - [x] resolve userId to displayName
 - [x] figure out comments architecture
+- [x] optimize userId to displayName
+  - [ ] util functions?
+- [ ] ui components
+  - [ ] post/comment cards
+  - [ ] list view
+  - [ ] nav header
+- [ ] responsive layouts
 - [ ] login container
 - [ ] home page
-- [ ] responsive layouts
+- [ ] categories
+- [ ] paged queries
+- [ ] hover user overlay
