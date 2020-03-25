@@ -35,7 +35,15 @@ export class PostService {
       .collection('posts')
       .doc<IPostData>(postId)
       .valueChanges()
-      .pipe(tap(post => console.log(post)));
+      .pipe(
+        map((post: any) => {
+          const createdDate = new Date(post.createdDate.seconds * 1000);
+          return {
+            ...post,
+            createdDate,
+          };
+        })
+      );
   }
 
   createPost(data) {

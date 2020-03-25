@@ -1,11 +1,12 @@
 <div *ngIf="post$ | async as post">
   <div>Name: {{ userName }}</div>
-  <div>
-    {{ post | json }}
-  </div>
+  <div>Date: {{ post.createdDate | date: 'MM-dd-yyyy' }}</div>
+  <div>{{ post.title }}</div>
+  <div>{{ post.text }}</div>
   <div *ngIf="comments$ | async as comments">
     <div *ngFor="let comment of comments">
-      {{ comment | json }}
+      <div>Date: {{ comment.createdDate | date: 'MM-dd-yyyy' }}</div>
+      <div>{{ comment.text }}</div>
     </div>
   </div>
   <div>
