@@ -34,10 +34,18 @@ export class AuthService {
     );
   }
 
-  async googleSignin() {
-    const provider = new auth.GoogleAuthProvider();
-    const credential = await this.fireAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+  signinPopup(provider) {
+    this.fireAuth.auth
+      .signInWithPopup(provider)
+      .then(credential => this.updateUserData(credential.user));
+  }
+
+  googleSignin() {
+    this.signinPopup(new auth.GoogleAuthProvider());
+  }
+
+  facebookSignin() {
+    this.signinPopup(new auth.FacebookAuthProvider());
   }
 
   private updateUserData(user) {
@@ -48,7 +56,6 @@ export class AuthService {
 
     const data = {
       uid: user.uid,
-      email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
     };
