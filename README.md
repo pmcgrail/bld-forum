@@ -33,12 +33,12 @@
 - [ ] ui components
   - [x] post/comment cards
   - [x] list view
-  - [ ] post/comment forms
-  - [ ] nav header
+  - [x] post/comment forms
+  - [x] nav header
+  - [ ] login container
+  - [ ] home page
 - [ ] responsive layouts
 - [ ] reusable buttons, etc.
-- [ ] login container
-- [ ] home page
 - [ ] categories
 - [ ] paged queries
 - [ ] hover user overlay

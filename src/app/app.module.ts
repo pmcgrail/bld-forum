@@ -11,13 +11,14 @@ import { environment } from '../environments/environment';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { PostsModule } from './containers/posts/posts.module';
 import { AuthGuard } from './providers/auth.guard';
+import { HeaderComponent } from './components/header/header.component';
 
 const config = {
   ...environment.firebaseConfig,
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ProfileComponent],
+  declarations: [AppComponent, HomeComponent, ProfileComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
