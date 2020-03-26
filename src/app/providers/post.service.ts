@@ -22,8 +22,10 @@ export class PostService {
       map(posts =>
         posts.map(post => {
           const data = post.payload.doc.data();
+          const createdDate = new Date(data.createdDate.seconds * 1000);
           return {
             ...data,
+            createdDate,
             uid: post.payload.doc.id,
           };
         })

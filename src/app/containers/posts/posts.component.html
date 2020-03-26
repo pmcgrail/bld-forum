@@ -6,7 +6,9 @@
     <list-item
       [link]="'posts/' + post.uid"
       [text]="post.title"
-      [subtext]="post.userName"
+      [subtext]="
+        post.userName + ' - ' + (post.createdDate | date: 'MM-dd-yyyy')
+      "
     >
     </list-item>
   </ng-container>
