@@ -1,5 +1,7 @@
+<div class="new-post">
+  <a href="posts/new"> New Post </a>
+</div>
 <list-base>
-  <list-item [link]="'posts/new'" [text]="'New Post'"> </list-item>
   <ng-container *ngFor="let post of posts$ | async">
     <list-item
       [link]="'posts/' + post.uid"
