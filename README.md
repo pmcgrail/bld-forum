@@ -31,8 +31,9 @@
 - [x] optimize userId to displayName
   - [ ] util functions?
 - [ ] ui components
-  - [ ] post/comment cards
+  - [x] post/comment cards
   - [x] list view
+  - [ ] post/comment forms
   - [ ] nav header
 - [ ] responsive layouts
 - [ ] login container
