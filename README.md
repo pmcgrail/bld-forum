@@ -36,6 +36,7 @@
   - [ ] post/comment forms
   - [ ] nav header
 - [ ] responsive layouts
+- [ ] reusable buttons, etc.
 - [ ] login container
 - [ ] home page
 - [ ] categories

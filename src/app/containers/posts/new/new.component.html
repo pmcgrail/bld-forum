@@ -1,8 +1,10 @@
-<div>
-  <div>Posting as {{ userName }}</div>
+<div class="container">
   <form [formGroup]="form">
-    <input type="text" formControlName="title" />
-    <input type="text" formControlName="text" />
-    <button (click)="createPost()">Post</button>
+    <div class="user">
+      Posting as <strong>{{ userName }}</strong>
+    </div>
+    <input class="title" type="text" formControlName="title" />
+    <textarea class="text" formControlName="text"></textarea>
+    <button [disabled]="!form.valid" (click)="createPost()">Post</button>
   </form>
 </div>

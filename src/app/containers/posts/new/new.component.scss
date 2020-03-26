@@ -1,0 +1,54 @@
+.container {
+  padding: 2em 1em 2em 2em;
+  background: #c0c0c0;
+  border-radius: 0.25em;
+
+  form {
+    display: grid;
+    grid-template-columns: auto 5em;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .user {
+    grid-column: 1 / span 2;
+
+    color: #606060;
+    margin-bottom: 1em;
+  }
+
+  .title {
+    grid-column: 1 / span 2;
+
+    padding: 0.5em;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    border-style: none;
+    border-radius: 0.25em;
+  }
+
+  .text {
+    grid-row: 3;
+    grid-column: 1 / span 2;
+
+    padding: 0.5em;
+    min-height: 10em;
+    resize: vertical;
+    margin-bottom: 1em;
+    border-style: none;
+    border-radius: 0.25em;
+  }
+
+  button {
+    grid-row: 4;
+    grid-column: 2;
+
+    color: #ffffff;
+    padding: 1em;
+    border-radius: 0.5em;
+    background: #2060a0;
+
+    &:disabled {
+      background: #606060;
+    }
+  }
+}
