@@ -37,6 +37,7 @@
   - [x] nav header
   - [ ] login container
   - [ ] home page
+  - [ ] user images
 - [ ] responsive layouts
 - [ ] reusable buttons, etc.
 - [ ] categories

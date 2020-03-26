@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="link"><a href="">Home</a></div>
-  <div class="link"><a href="posts">Posts</a></div>
-  <div class="link"><a href="profile">Profile</a></div>
+  <ng-container *ngFor="let tab of TABS">
+    <div
+      class="tab"
+      [ngClass]="{ selected: tab.key === (selectedTab$ | async) }"
+    >
+      <a [href]="tab.link">{{ tab.text }}</a>
+    </div>
+  </ng-container>
 </div>
