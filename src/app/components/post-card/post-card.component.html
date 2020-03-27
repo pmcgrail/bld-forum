@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="user">{{ post.userName }}</div>
+  <app-user-tag class="user" [userId]="post.userId"></app-user-tag>
   <div class="date">{{ post.createdDate | date: 'MM-dd-yyyy' }}</div>
   <h1 class="title">{{ post.title }}</h1>
   <div class="text">{{ post.text }}</div>

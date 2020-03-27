@@ -31,7 +31,6 @@
 - [x] resolve userId to displayName
 - [x] figure out comments architecture
 - [x] optimize userId to displayName
-  - [ ] util functions?
 - [ ] ui components
   - [x] post/comment cards
   - [x] list view
@@ -39,8 +38,8 @@
   - [x] nav header
   - [x] home page
   - [x] profile page
-    - [ ] update user info
-  - [ ] user images
+    - [x] update user info
+  - [x] user images
 - [ ] responsive layouts
 - [ ] reusable buttons, etc.
 - [ ] categories

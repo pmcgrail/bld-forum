@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 2em;
+    border-radius: 1em;
+    margin-right: 0.5em;
+  }
+
+  span {
+    color: #a0a0a0;
+    font-size: 0.8em;
+  }
+}

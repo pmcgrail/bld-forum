@@ -11,15 +11,14 @@
 
   .user {
     grid-area: user;
-    color: #a0a0a0;
-    font-size: 0.8em;
   }
 
   .date {
     grid-area: date;
+    text-align: end;
     color: #a0a0a0;
     font-size: 0.8em;
-    text-align: end;
+    align-self: center;
   }
 
   .text {

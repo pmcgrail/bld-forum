@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { IUser, IPost, IComment } from '../../../models';
 
@@ -27,7 +27,6 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
     private service: PostService,
-    private userService: UserService,
     private commentService: CommentService
   ) {
     this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
@@ -46,36 +45,7 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.post$ = this.service.getPost(this.postId).pipe(
-      switchMap((post: IPost) =>
-        combineLatest(of(post), this.userService.getUser(post.userId))
-      ),
-      map(([post, user]: [IPost, IUser]) => {
-        return {
-          ...post,
-          userName: user.displayName,
-        };
-      })
-    );
-    this.comments$ = this.commentService.getComments(this.postId).pipe(
-      switchMap((comments: IComment[]) => {
-        const userIds = comments.reduce((ids, comment) => {
-          if (!ids.includes(comment.userId)) {
-            ids.push(comment.userId);
-          }
-          return ids;
-        }, []);
-        return combineLatest(of(comments), this.userService.getUsers(userIds));
-      }),
-      map(([comments, users]: [IComment[], IUser[]]) => {
-        return comments.map((comment: IComment) => {
-          return {
-            ...comment,
-            userName: users.find(user => user.uid === comment.userId)
-              .displayName,
-          };
-        });
-      })
-    );
+    this.post$ = this.service.getPost(this.postId);
+    this.comments$ = this.commentService.getComments(this.postId);
   }
 }

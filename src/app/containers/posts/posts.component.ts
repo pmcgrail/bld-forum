@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, combineLatest, of } from 'rxjs';
-import { switchMap, filter, map } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
 
 import { PostService, UserService } from '../../providers';
-import { IPost, IUser } from '../../models';
+import { IUser } from '../../models';
 
 @Component({
   selector: 'app-posts',
@@ -15,33 +14,10 @@ export class PostsComponent implements OnInit, OnDestroy {
   users$;
   destroy$: Subject<null> = new Subject();
 
-  constructor(private service: PostService, private userService: UserService) {}
-
-  getUser(userId: string) {
-    this.userService.getUser(userId);
-  }
+  constructor(private service: PostService) {}
 
   ngOnInit() {
-    this.posts$ = this.service.getPosts().pipe(
-      filter(posts => !!posts),
-      switchMap((posts: IPost[]) => {
-        const userIds = posts.reduce((ids, post) => {
-          if (!ids.includes(post.userId)) {
-            ids.push(post.userId);
-          }
-          return ids;
-        }, []);
-        return combineLatest(of(posts), this.userService.getUsers(userIds));
-      }),
-      map(([posts, users]: [IPost[], IUser[]]) => {
-        return posts.map((post: IPost) => {
-          return {
-            ...post,
-            userName: users.find(user => user.uid === post.userId).displayName,
-          };
-        });
-      })
-    );
+    this.posts$ = this.service.getPosts();
   }
 
   ngOnDestroy() {

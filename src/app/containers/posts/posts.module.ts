@@ -10,6 +10,7 @@ import { CommentFormComponent } from '../../components/comment-form/comment-form
 import { ListModule } from '../../components/list/list.module';
 import { PostCardComponent } from '../../components/post-card/post-card.component';
 import { CommentCardComponent } from 'src/app/components/comment-card/comment-card.component';
+import { UserTagComponent } from 'src/app/components/user-tag/user-tag.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CommentCardComponent } from 'src/app/components/comment-card/comment-ca
     CommentFormComponent,
     PostCardComponent,
     CommentCardComponent,
+    UserTagComponent,
   ],
   imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, ListModule],
 })
