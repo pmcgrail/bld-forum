@@ -1,11 +1,13 @@
 .new-post {
-  padding: 1em;
-  background: #2060a0;
-  width: 5em;
-  text-align: center;
-  border-radius: 0.5em;
+  display: flex;
+  margin-bottom: 1em;
 
   a {
+    width: 5em;
+    padding: 1em;
     color: #ffffff;
+    text-align: center;
+    border-radius: 0.5em;
+    background: #2060a0;
   }
 }
