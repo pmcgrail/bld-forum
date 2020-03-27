@@ -31,7 +31,6 @@
   }
 
   .text {
-    grid-row: 3;
     grid-column: 1 / span 2;
 
     padding: 0.5em;
@@ -44,6 +43,13 @@
     &.required {
       border: 1px solid #ff6060;
     }
+  }
+
+  .errors {
+    grid-row: 4;
+    grid-column: 1;
+
+    color: #ff6060;
   }
 
   button {

@@ -4,8 +4,9 @@
       Posting as <strong>{{ userName }}</strong>
     </div>
     <input
-      class="title"
       type="text"
+      class="title"
+      placeholder="Title"
       formControlName="title"
       [ngClass]="{
         required: validateInput('title')
@@ -13,11 +14,18 @@
     />
     <textarea
       class="text"
+      placeholder="Text"
       formControlName="text"
       [ngClass]="{
         required: validateInput('text')
       }"
     ></textarea>
+    <div class="errors">
+      <div *ngIf="validateInput('title')">
+        Title {{ getLengthError('title') }}
+      </div>
+      <div *ngIf="validateInput('text')">Text {{ getLengthError('text') }}</div>
+    </div>
     <button [disabled]="!form.valid" (click)="createPost()">Post</button>
   </form>
 </div>

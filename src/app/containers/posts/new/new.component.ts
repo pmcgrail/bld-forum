@@ -48,6 +48,16 @@ export class NewComponent implements OnInit, OnDestroy {
     return formControl.touched && formControl.dirty && formControl.errors;
   }
 
+  getLengthError(formControlName: string) {
+    const errors = this.form.get(formControlName).errors;
+    const lengthError = errors.minlength || errors.maxlength;
+    if (lengthError) {
+      return `${lengthError.actualLength}/${lengthError.requiredLength}`;
+    } else {
+      return 'required';
+    }
+  }
+
   createPost() {
     const data: IPost = {
       ...this.form.value,
