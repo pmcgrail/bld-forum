@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AuthService } from 'src/app/providers';
+import { IUser } from 'src/app/models';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,7 @@ import { AuthService } from 'src/app/providers';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  authUser$;
+  authUser$: Observable<IUser>;
 
   constructor(public auth: AuthService) {
     this.authUser$ = this.auth.user$;
