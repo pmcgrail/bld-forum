@@ -33,9 +33,9 @@
   .text {
     grid-column: 1 / span 2;
 
+    resize: none;
     padding: 0.5em;
-    min-height: 10em;
-    resize: vertical;
+    min-height: 20em;
     margin-bottom: 1em;
     border-style: none;
     border-radius: 0.25em;
