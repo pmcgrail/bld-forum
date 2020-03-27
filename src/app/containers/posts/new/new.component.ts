@@ -16,8 +16,16 @@ import { IPost } from '../../../models';
 })
 export class NewComponent implements OnInit, OnDestroy {
   form = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    text: new FormControl('', [Validators.required]),
+    title: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(50),
+    ]),
+    text: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(1000),
+    ]),
   });
 
   userName: string;
@@ -33,6 +41,11 @@ export class NewComponent implements OnInit, OnDestroy {
       this.userName = user.displayName;
       this.userId = user.uid;
     });
+  }
+
+  validateInput(formControlName: string) {
+    const formControl = this.form.get(formControlName);
+    return formControl.touched && formControl.dirty && formControl.errors;
   }
 
   createPost() {

@@ -3,8 +3,21 @@
     <div class="user">
       Posting as <strong>{{ userName }}</strong>
     </div>
-    <input class="title" type="text" formControlName="title" />
-    <textarea class="text" formControlName="text"></textarea>
+    <input
+      class="title"
+      type="text"
+      formControlName="title"
+      [ngClass]="{
+        required: validateInput('title')
+      }"
+    />
+    <textarea
+      class="text"
+      formControlName="text"
+      [ngClass]="{
+        required: validateInput('text')
+      }"
+    ></textarea>
     <button [disabled]="!form.valid" (click)="createPost()">Post</button>
   </form>
 </div>
