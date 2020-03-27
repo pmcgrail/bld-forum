@@ -13,6 +13,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { PostsModule } from './containers/posts/posts.module';
 import { AuthGuard } from './providers/auth.guard';
 import { HeaderComponent } from './components/header/header.component';
+import { AboutComponent } from './containers/about/about.component';
 
 const config = {
   ...environment.firebaseConfig,
@@ -24,6 +25,7 @@ const config = {
     HomeComponent,
     ProfileComponent,
     HeaderComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

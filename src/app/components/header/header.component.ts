@@ -23,6 +23,11 @@ export class HeaderComponent implements OnInit {
       link: 'profile',
       text: 'Profile',
     },
+    {
+      key: 'about',
+      link: 'about',
+      text: 'About',
+    },
   ];
 
   selectedTab$;

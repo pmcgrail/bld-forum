@@ -2,7 +2,7 @@
 
 ## Data Models
 
-### users (from Google Auth)
+### users
 
 - displayName
 - photoURL
@@ -36,10 +36,12 @@
   - [x] list view
   - [x] post/comment forms
   - [x] nav header
-  - [x] home page
-  - [x] profile page
-    - [x] update user info
   - [x] user images
+  - [ ] display district info
+- [x] home page
+- [x] profile page
+  - [x] update user info
+- [x] about page
 - [ ] responsive layouts
 - [ ] reusable buttons, etc.
 - [ ] categories
