@@ -36,11 +36,16 @@ export class CommentService {
       .doc(postId)
       .collection('comments')
       .add(comment)
-      .then(() => {
-        this.fireStore
-          .collection('posts')
-          .doc(postId)
-          .set({ lastActionDate: comment.createdDate }, { merge: true });
-      });
+      .then(
+        () => {
+          this.fireStore
+            .collection('posts')
+            .doc(postId)
+            .set({ lastActionDate: comment.createdDate }, { merge: true });
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 }

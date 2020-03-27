@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-comment-form',
@@ -7,16 +7,13 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent implements OnInit {
+  @Input()
+  text: FormControl;
+
   @Output()
-  saveComment: EventEmitter<string> = new EventEmitter();
+  saveComment: EventEmitter<null> = new EventEmitter();
 
   expand = false;
-
-  text = new FormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(500),
-  ]);
 
   constructor() {}
 
@@ -26,7 +23,7 @@ export class CommentFormComponent implements OnInit {
 
   onSaveComment() {
     if (this.text.valid) {
-      this.saveComment.emit(this.text.value);
+      this.saveComment.emit();
     }
   }
 

@@ -6,6 +6,9 @@
     </ng-container>
   </div>
   <div>
-    <app-comment-form (saveComment)="onSaveComment($event)"></app-comment-form>
+    <app-comment-form
+      [text]="commentText"
+      (saveComment)="onSaveComment()"
+    ></app-comment-form>
   </div>
 </div>

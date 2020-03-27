@@ -2,15 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { FormControl, Validators } from '@angular/forms';
 
 import { IUser, IPost, IComment } from '../../../models';
-
-import {
-  PostService,
-  UserService,
-  CommentService,
-  AuthService,
-} from '../../../providers';
+import { PostService, CommentService, AuthService } from '../../../providers';
 
 @Component({
   selector: 'app-view',
@@ -22,6 +17,12 @@ export class ViewComponent implements OnInit {
   postId: string;
   post$: Observable<IPost>;
   comments$: Observable<IComment[]>;
+
+  commentText = new FormControl('', [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.maxLength(500),
+  ]);
 
   constructor(
     private route: ActivatedRoute,
@@ -35,13 +36,20 @@ export class ViewComponent implements OnInit {
     this.postId = this.route.snapshot.params['postId'];
   }
 
-  onSaveComment(text: string) {
+  onSaveComment() {
     const data: IComment = {
-      text,
+      text: this.commentText.value,
       userId: this.authId,
       createdDate: new Date(),
     };
-    this.commentService.createComment(this.postId, data);
+    this.commentService.createComment(this.postId, data).then(
+      () => {
+        this.commentText.reset();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit() {
