@@ -13,7 +13,7 @@ export class PostService {
 
   constructor(private fireStore: AngularFirestore) {
     this.posts$ = this.fireStore
-      .collection('posts', ref => ref.orderBy('createdDate', 'desc'))
+      .collection('posts', ref => ref.orderBy('lastActionDate', 'desc'))
       .snapshotChanges();
   }
 
@@ -49,7 +49,11 @@ export class PostService {
       );
   }
 
-  createPost(data) {
+  createPost(post: IPost) {
+    const data = {
+      ...post,
+      lastActionDate: post.createdDate,
+    };
     return this.fireStore.collection('posts').add(data);
   }
 }

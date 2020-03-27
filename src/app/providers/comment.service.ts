@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { IComment } from '../models';
 
 @Injectable({
@@ -29,11 +30,17 @@ export class CommentService {
       );
   }
 
-  createComment(postId: string, data) {
+  createComment(postId: string, comment: IComment) {
     return this.fireStore
       .collection('posts')
       .doc(postId)
       .collection('comments')
-      .add(data);
+      .add(comment)
+      .then(() => {
+        this.fireStore
+          .collection('posts')
+          .doc(postId)
+          .set({ lastActionDate: comment.createdDate }, { merge: true });
+      });
   }
 }
