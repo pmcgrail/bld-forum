@@ -12,6 +12,10 @@
     resize: vertical;
     border-top-left-radius: 0.5em;
     border-bottom-left-radius: 0.5em;
+
+    &.required {
+      border: 1px solid #ff6060;
+    }
   }
 
   button {

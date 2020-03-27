@@ -10,9 +10,17 @@ export class CommentFormComponent implements OnInit {
   @Output()
   saveComment: EventEmitter<string> = new EventEmitter();
 
-  text = new FormControl('', Validators.required);
+  text = new FormControl('', [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.maxLength(500),
+  ]);
 
   constructor() {}
+
+  validateInput() {
+    return this.text.touched && this.text.dirty && this.text.errors;
+  }
 
   onSaveComment() {
     if (this.text.valid) {

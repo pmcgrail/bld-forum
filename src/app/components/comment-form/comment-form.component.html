@@ -1,5 +1,9 @@
 <div class="container">
-  <textarea type="text" [formControl]="text"></textarea>
+  <textarea
+    type="text"
+    [formControl]="text"
+    [ngClass]="{ required: validateInput() }"
+  ></textarea>
   <button [disabled]="!text.valid" (click)="onSaveComment()">
     <i class="material-icons">keyboard_arrow_right</i>
   </button>
