@@ -6,7 +6,7 @@
     <list-item
       [link]="'posts/' + post.uid"
       [text]="post.title"
-      [subtext]="post.createdDate | date: 'MM-dd-yyyy'"
+      [subtext]="post.createdDate | date: 'MMM, d yyyy h:mm a'"
     >
       <app-user-tag [userId]="post.userId"></app-user-tag>
     </list-item>

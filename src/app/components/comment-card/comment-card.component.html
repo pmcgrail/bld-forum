@@ -1,5 +1,5 @@
 <div class="container">
   <app-user-tag class="user" [userId]="comment.userId"></app-user-tag>
-  <div class="date">{{ comment.createdDate | date: 'MM-dd-yyyy' }}</div>
+  <div class="date">{{ comment.createdDate | date: 'MMM, d yyyy h:mm a' }}</div>
   <p class="text">{{ comment.text }}</p>
 </div>
