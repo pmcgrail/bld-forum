@@ -1,0 +1,17 @@
+.login-button {
+  height: 3em;
+  color: #ffffff;
+  font-weight: bold;
+  padding-right: 1em;
+  padding-left: 0.5em;
+  border-radius: 1.5em;
+  background: #1877f2;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+
+  img {
+    height: 2em;
+  }
+}

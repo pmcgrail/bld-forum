@@ -1,6 +1,31 @@
-<div>
-  <a href="profile">Profile</a>
-</div>
-<div>
-  <a href="posts">Posts</a>
-</div>
+<h1>BLD Forum (Beta)</h1>
+<ng-container *ngIf="authUser$ | async as user; else login">
+  <div>
+    <h2>Welcome, {{ user.displayName }}</h2>
+    <p>
+      Thanks for joining this little experiment. This is still a
+      work-in-progress, so expect frequent updates and occasional
+      (fingers-crossed) bugs.
+    </p>
+    <p>
+      At the moment this forum is open to anyone with the link, so I humbly
+      request that you help me keep this semi-private. That being said, feel
+      free to share it with other members of BLD from any district.
+    </p>
+  </div>
+</ng-container>
+
+<ng-template #login>
+  <h2>Howdy, Stranger</h2>
+  <p>Get started by logging in below.</p>
+  <p>
+    Logging in will provide the forum with your name, profile picture, and email
+    address. No other data from Facebook will be stored.
+  </p>
+  <button (click)="loginFacebook()">
+    <div class="login-button">
+      <img src="assets\f_logo_RGB-Blue_144.png" />
+      <span>Login with Facebook</span>
+    </div>
+  </button>
+</ng-template>
