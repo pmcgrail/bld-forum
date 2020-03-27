@@ -5,20 +5,30 @@
   border-radius: 0.25em;
 
   display: grid;
+  grid-template-rows: auto auto;
   grid-template-columns: auto 3em;
 
   textarea {
+    resize: none;
     min-height: 3em;
-    resize: vertical;
     border-top-left-radius: 0.5em;
     border-bottom-left-radius: 0.5em;
+
+    &.expand {
+      height: 10em;
+    }
 
     &.required {
       border: 1px solid #ff6060;
     }
   }
 
-  button {
+  button.expand {
+    grid-row: 2;
+    grid-column: 1 / span 2;
+  }
+
+  button.save {
     color: #f0f0f0;
     background: #2060a0;
     border-radius: 0 0.5em 0.5em 0;

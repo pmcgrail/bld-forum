@@ -2,9 +2,12 @@
   <textarea
     type="text"
     [formControl]="text"
-    [ngClass]="{ required: validateInput() }"
+    [ngClass]="{ expand: expand, required: validateInput() }"
   ></textarea>
-  <button [disabled]="!text.valid" (click)="onSaveComment()">
+  <button class="save" [disabled]="!text.valid" (click)="onSaveComment()">
     <i class="material-icons">keyboard_arrow_right</i>
+  </button>
+  <button class="expand" *ngIf="!expand" (click)="expand = true">
+    <i class="material-icons">keyboard_arrow_down</i>
   </button>
 </div>

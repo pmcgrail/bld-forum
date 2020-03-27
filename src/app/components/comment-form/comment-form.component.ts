@@ -10,6 +10,8 @@ export class CommentFormComponent implements OnInit {
   @Output()
   saveComment: EventEmitter<string> = new EventEmitter();
 
+  expand = false;
+
   text = new FormControl('', [
     Validators.required,
     Validators.minLength(5),
