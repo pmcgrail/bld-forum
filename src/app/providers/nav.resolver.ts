@@ -12,7 +12,13 @@ export class NavResolver implements Resolve<boolean> {
     if (route.url[0]) {
       const path = route.url[0].path;
       selectedTab =
-        path === 'posts' ? 'posts' : path === 'profile' ? 'profile' : undefined;
+        path === 'posts'
+          ? 'posts'
+          : path === 'profile'
+          ? 'profile'
+          : path === 'about'
+          ? 'about'
+          : undefined;
     } else {
       selectedTab = 'home';
     }
