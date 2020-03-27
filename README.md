@@ -31,7 +31,7 @@
 - [x] resolve userId to displayName
 - [x] figure out comments architecture
 - [x] optimize userId to displayName
-- [ ] ui components
+- [x] ui components
   - [x] post/comment cards
   - [x] list view
   - [x] post/comment forms
