@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { AuthService } from '../../providers/auth.service';
 import { IUser } from 'src/app/models';
 import { UserService } from 'src/app/providers';
+import { DISTRICTS } from 'src/app/data';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ import { UserService } from 'src/app/providers';
 export class ProfileComponent implements OnInit {
   authId: string;
   authUser$: Observable<IUser>;
+  districts: string[] = DISTRICTS;
 
   form = new FormGroup({
     district: new FormControl('', [Validators.required]),

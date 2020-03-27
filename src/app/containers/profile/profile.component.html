@@ -13,7 +13,9 @@
     <div class="district">
       <label for="district">District:</label>
       <select id="district" formControlName="district">
-        <option value="newark">Newark</option>
+        <ng-container *ngFor="let district of districts">
+          <option [value]="district">{{ district }}</option>
+        </ng-container>
       </select>
     </div>
     <div class="se-class">
