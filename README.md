@@ -7,6 +7,8 @@
 - displayName
 - photoURL
 - uid
+- district
+- seClass
 
 ### posts
 
@@ -35,8 +37,9 @@
   - [x] list view
   - [x] post/comment forms
   - [x] nav header
-  - [ ] login container
-  - [ ] home page
+  - [x] home page
+  - [x] profile page
+    - [ ] update user info
   - [ ] user images
 - [ ] responsive layouts
 - [ ] reusable buttons, etc.
