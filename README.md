@@ -42,8 +42,13 @@
 - [x] profile page
   - [x] update user info
 - [x] about page
-- [ ] responsive layouts
-- [ ] reusable buttons, etc.
-- [ ] categories
+- [x] responsive layouts
+- [x] order posts by comment date
+- [ ] character limits
 - [ ] paged queries
+- [ ] hosting
+- [ ] categories
+- [ ] status/error messages
+- [ ] CI/CD
 - [ ] hover user overlay
+- [ ] reusable buttons, etc.
