@@ -44,7 +44,7 @@
 - [x] about page
 - [x] responsive layouts
 - [x] order posts by comment date
-- [ ] character limits
+- [x] character limits
 - [ ] paged queries
 - [ ] hosting
 - [ ] categories
