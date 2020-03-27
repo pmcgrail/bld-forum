@@ -27,4 +27,11 @@ export class UserService {
           .pipe(map(query => query.docs.map(doc => doc.data())))
       : undefined;
   }
+
+  updateUser(userId: string, data) {
+    this.fireStore
+      .collection('users')
+      .doc(userId)
+      .set(data, { merge: true });
+  }
 }

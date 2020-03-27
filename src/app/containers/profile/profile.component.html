@@ -26,6 +26,12 @@
         formControlName="seClass"
       />
     </div>
-    <button class="save" (click)="saveUserInfo()">Save</button>
+    <button
+      class="save"
+      [disabled]="!form.valid || form.pristine"
+      (click)="saveUserInfo()"
+    >
+      Save
+    </button>
   </form>
 </div>
