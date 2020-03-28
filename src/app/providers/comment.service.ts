@@ -7,6 +7,18 @@ import * as firebase from 'firebase/app';
 import { IComment } from '../models';
 import { MAX_COMMENTS } from '../data';
 
+const mapDate = (comment: any) => {
+  const createdDate = comment.createdDate.toDate();
+  return {
+    ...comment,
+    createdDate,
+  };
+};
+
+const mapSortDates = (comments: any[]) => {
+  return comments.map(mapDate).sort((a, b) => a.createdDate - b.createdDate);
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,21 +31,10 @@ export class CommentService {
     from: Date = undefined
   ): Observable<IComment[]> {
     const pagedQuery = (ref: CollectionReference) => {
-      if (from) {
-        if (next) {
-          return ref
-            .orderBy('createdDate')
-            .startAfter(from)
-            .limit(MAX_COMMENTS);
-        } else {
-          console.log('endBefore');
-          return ref
-            .orderBy('createdDate')
-            .endBefore(from)
-            .limit(MAX_COMMENTS);
-        }
-      }
-      return ref.orderBy('createdDate').limit(MAX_COMMENTS);
+      return ref
+        .orderBy('createdDate', next ? 'asc' : 'desc')
+        .startAfter(from ? from : 0)
+        .limit(MAX_COMMENTS);
     };
 
     return this.fireStore
@@ -41,41 +42,28 @@ export class CommentService {
       .doc(postId)
       .collection<IComment[]>('comments', pagedQuery)
       .valueChanges()
-      .pipe(
-        map((comments: any) => {
-          return comments.map(comment => {
-            const createdDate = comment.createdDate.toDate();
-            return {
-              ...comment,
-              createdDate,
-            };
-          });
-        })
-      );
+      .pipe(map(mapSortDates));
   }
 
   createComment(postId: string, comment: IComment) {
+    const postData = {
+      lastActionDate: comment.createdDate,
+      commentCounter: firebase.firestore.FieldValue.increment(1),
+    };
+    const updatePost = () => {
+      this.fireStore
+        .collection('posts')
+        .doc(postId)
+        .set(postData, { merge: true });
+    };
+
     return this.fireStore
       .collection('posts')
       .doc(postId)
       .collection('comments')
       .add(comment)
-      .then(
-        () => {
-          this.fireStore
-            .collection('posts')
-            .doc(postId)
-            .set(
-              {
-                lastActionDate: comment.createdDate,
-                commentCounter: firebase.firestore.FieldValue.increment(1),
-              },
-              { merge: true }
-            );
-        },
-        error => {
-          console.log(error);
-        }
-      );
+      .then(updatePost, error => {
+        console.log(error);
+      });
   }
 }
