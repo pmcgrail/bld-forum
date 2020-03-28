@@ -43,10 +43,13 @@
   - [x] update user info
 - [x] about page
 - [x] responsive layouts
+  - [ ] fix nav header
 - [x] order posts by comment date
 - [x] character limits
 - [ ] paged queries
 - [ ] hosting
+- 0.1.0
+- [ ] split comment list into componentsz
 - [ ] categories
 - [ ] status/error messages
 - [ ] CI/CD

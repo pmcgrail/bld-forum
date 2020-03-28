@@ -22,7 +22,7 @@ export class PostService {
       map(posts =>
         posts.map(post => {
           const data = post.payload.doc.data();
-          const createdDate = new Date(data.createdDate.seconds * 1000);
+          const createdDate = data.createdDate.toDate();
           return {
             ...data,
             createdDate,
@@ -40,7 +40,7 @@ export class PostService {
       .valueChanges()
       .pipe(
         map((post: any) => {
-          const createdDate = new Date(post.createdDate.seconds * 1000);
+          const createdDate = post.createdDate.toDate();
           return {
             ...post,
             createdDate,

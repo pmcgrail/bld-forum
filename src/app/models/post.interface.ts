@@ -1,8 +1,12 @@
 export class IPost {
-  uid?: string;
+  uid?: string; //dynamically added
+
   text: string;
   title: string;
   userId: string;
   createdDate: Date;
-  userName?: string;
+  lastActionDate?: Date;
+  commentCounter?: number;
+
+  userName?: string; //dynamically added
 }
