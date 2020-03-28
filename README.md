@@ -47,6 +47,9 @@
 - [x] order posts by comment date
 - [x] character limits
 - [ ] paged queries
+  - [x] comment queries
+  - [ ] post queries
+  - [ ] UI components
 - [ ] hosting
 - 0.1.0
 - [ ] split comment list into componentsz
