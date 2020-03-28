@@ -1,14 +1,28 @@
 <div *ngIf="post$ | async as post">
   <app-post-card [post]="post"> </app-post-card>
+  <div class="pagination">
+    <app-pagination
+      [max]="pages"
+      (prev)="loadPrevComments()"
+      (next)="loadNextComments()"
+    >
+    </app-pagination>
+  </div>
   <div *ngIf="comments$ | async as comments">
     <ng-container *ngFor="let comment of comments">
       <app-comment-card [comment]="comment"></app-comment-card>
     </ng-container>
   </div>
+  <div class="pagination">
+    <app-pagination
+      [max]="pages"
+      (prev)="loadPrevComments()"
+      (next)="loadNextComments()"
+    >
+    </app-pagination>
+  </div>
   <div>
-    <app-comment-form
-      [text]="commentText"
-      (saveComment)="onSaveComment()"
-    ></app-comment-form>
+    <app-comment-form [text]="commentText" (saveComment)="saveComment()">
+    </app-comment-form>
   </div>
 </div>

@@ -1,0 +1,9 @@
+<div class="container">
+  <button *ngIf="current > 1" (click)="onPrev()">
+    <i class="material-icons">keyboard_arrow_left</i>
+  </button>
+  <span>{{ current }} of {{ max }}</span>
+  <button *ngIf="current < max" (click)="onNext()">
+    <i class="material-icons">keyboard_arrow_right</i>
+  </button>
+</div>
