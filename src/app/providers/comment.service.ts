@@ -7,16 +7,16 @@ import * as firebase from 'firebase/app';
 import { IComment } from '../models';
 import { MAX_COMMENTS } from '../data';
 
-const mapDate = (comment: any) => {
-  const createdDate = comment.createdDate.toDate();
-  return {
-    ...comment,
-    createdDate,
-  };
-};
-
 const mapSortDates = (comments: any[]) => {
-  return comments.map(mapDate).sort((a, b) => a.createdDate - b.createdDate);
+  return comments
+    .map((comment: any) => {
+      const createdDate = comment.createdDate.toDate();
+      return {
+        ...comment,
+        createdDate,
+      };
+    })
+    .sort((a, b) => a.createdDate - b.createdDate);
 };
 
 @Injectable({

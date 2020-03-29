@@ -73,8 +73,10 @@ export class ViewComponent implements OnInit {
 
   commentsLoaded = (comments: IComment[]) => {
     this.loadingComments = false;
-    this.start = comments[0].createdDate;
-    this.end = comments[comments.length - 1].createdDate;
+    if (comments.length) {
+      this.start = comments[0].createdDate;
+      this.end = comments[comments.length - 1].createdDate;
+    }
   };
 
   ngOnInit() {
