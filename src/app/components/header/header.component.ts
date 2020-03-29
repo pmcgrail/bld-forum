@@ -31,10 +31,12 @@ export class HeaderComponent implements OnInit {
   ];
 
   selectedTab$;
+  enableHeader$;
 
   constructor(private uiState: UIStateService) {
     this.selectedTab$ = this.uiState.selectedTab$;
+    this.enableHeader$ = this.uiState.enableHeader$;
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 }

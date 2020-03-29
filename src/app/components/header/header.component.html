@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="enableHeader$ | async" class="container">
   <ng-container *ngFor="let tab of TABS">
     <div
       class="tab"

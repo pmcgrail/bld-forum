@@ -56,6 +56,7 @@
 - [ ] categories
 - [ ] status/error messages
 - [ ] firebase permissions
+- [ ] staging/prod environments
 - [ ] CI/CD
 - [ ] hover user overlay
 - [ ] reusable buttons, etc.

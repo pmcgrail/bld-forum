@@ -6,6 +6,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
 import { NavResolver } from './providers/nav.resolver';
 import { AuthGuard } from './providers';
 import { AboutComponent } from './containers/about/about.component';
+import { PrivacyComponent } from './containers/privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { _: NavResolver } },
@@ -19,6 +20,10 @@ const routes: Routes = [
     path: 'about',
     component: AboutComponent,
     resolve: { _: NavResolver },
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
   },
 ];
 

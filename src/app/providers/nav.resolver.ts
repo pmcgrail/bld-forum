@@ -22,6 +22,7 @@ export class NavResolver implements Resolve<boolean> {
     } else {
       selectedTab = 'home';
     }
+    this.uiState.enableHeader();
     this.uiState.setSelectedTab(selectedTab);
     return true;
   }
