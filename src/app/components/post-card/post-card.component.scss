@@ -15,6 +15,7 @@
 
   .date {
     grid-area: date;
+
     text-align: end;
     color: #a0a0a0;
     font-size: 0.8em;
@@ -23,11 +24,15 @@
 
   .title {
     grid-area: title;
+
+    margin: 0.5em 0;
     color: #404040;
+    font-weight: 500;
   }
 
   .text {
     grid-area: text;
+
     color: #404040;
   }
 }

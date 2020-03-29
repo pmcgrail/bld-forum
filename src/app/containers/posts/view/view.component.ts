@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
   pages: number;
   authId: string;
   postId: string;
+  loadingComments = false;
   post$: Observable<IPost>;
   comments$: Observable<IComment[]>;
 
@@ -41,15 +42,17 @@ export class ViewComponent implements OnInit {
   }
 
   loadPrevComments() {
+    this.loadingComments = true;
     this.comments$ = this.commentService
       .getComments(this.postId, false, this.start)
-      .pipe(tap(this.setStartAndEnd));
+      .pipe(tap(this.commentsLoaded));
   }
 
   loadNextComments() {
+    this.loadingComments = true;
     this.comments$ = this.commentService
       .getComments(this.postId, true, this.end)
-      .pipe(tap(this.setStartAndEnd));
+      .pipe(tap(this.commentsLoaded));
   }
 
   saveComment() {
@@ -68,10 +71,10 @@ export class ViewComponent implements OnInit {
     );
   }
 
-  setStartAndEnd = (comments: IComment[]) => {
+  commentsLoaded = (comments: IComment[]) => {
+    this.loadingComments = false;
     this.start = comments[0].createdDate;
     this.end = comments[comments.length - 1].createdDate;
-    console.log(this.start, this.end);
   };
 
   ngOnInit() {
@@ -83,8 +86,9 @@ export class ViewComponent implements OnInit {
             (this.pages = Math.ceil(post.commentCounter / MAX_COMMENTS))
         )
       );
+    this.loadingComments = true;
     this.comments$ = this.commentService
       .getComments(this.postId)
-      .pipe(tap(this.setStartAndEnd));
+      .pipe(tap(this.commentsLoaded));
   }
 }

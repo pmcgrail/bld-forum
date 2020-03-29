@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { PostsRoutingModule } from './posts-routing.module';
 import { NewComponent } from './new/new.component';
@@ -24,6 +25,13 @@ import { PaginationComponent } from 'src/app/components/pagination/pagination.co
     UserTagComponent,
     PaginationComponent,
   ],
-  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, ListModule],
+  imports: [
+    CommonModule,
+    PostsRoutingModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+
+    ListModule,
+  ],
 })
 export class PostsModule {}

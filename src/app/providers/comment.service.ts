@@ -28,7 +28,7 @@ export class CommentService {
   getComments(
     postId: string,
     next: boolean = true,
-    from: Date = undefined
+    from?: Date
   ): Observable<IComment[]> {
     const pagedQuery = (ref: CollectionReference) => {
       return ref
