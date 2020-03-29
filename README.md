@@ -37,7 +37,7 @@
   - [x] post/comment forms
   - [x] nav header
   - [x] user images
-  - [ ] display district info
+  - [x] display district info
 - [x] home page
 - [x] profile page
   - [x] update user info

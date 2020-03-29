@@ -1,4 +1,4 @@
 <div class="container" *ngIf="user$ | async as user">
   <img *ngIf="user.photoURL" [src]="user.photoURL" />
-  <span>{{ user.displayName }}</span>
+  <span>{{ user.displayName }} ({{ user.district }})</span>
 </div>
