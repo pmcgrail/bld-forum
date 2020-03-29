@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bld-forum": {
+      "hosting": {
+        "bld-forum": [
+          "bld-forum"
+        ]
+      }
+    }
+  }
+}

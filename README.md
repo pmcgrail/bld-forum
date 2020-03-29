@@ -50,11 +50,12 @@
   - [x] comment queries
   - [x] post queries
   - [x] UI components
-- [ ] hosting
+- [x] hosting
 - 0.1.0
-- [ ] split comment list into componentsz
+- [ ] split comment list into components
 - [ ] categories
 - [ ] status/error messages
+- [ ] firebase permissions
 - [ ] CI/CD
 - [ ] hover user overlay
 - [ ] reusable buttons, etc.
