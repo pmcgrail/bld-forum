@@ -1,7 +1,7 @@
 <h1>BLD Forum (Beta)</h1>
 <ng-container *ngIf="authUser$ | async as user; else login">
   <div>
-    <h3>Welcome, {{ user.displayName }}</h3>
+    <h2>Welcome, {{ user.displayName }}</h2>
     <p>
       Thanks for joining this little experiment. This is still a
       work-in-progress, so expect frequent updates and occasional
@@ -19,21 +19,21 @@
       If you find a bug or would like to provide feedback please
       <a href="mailto:mcgrail.p@gmail.com" target="_system">email me</a>.
     </p>
-    <h5>
+    <h4 class="quote">
       We must consider how to rouse one another to love and good works. We
       should not stay away from our assembly, as is the custom of some, but
       encourage one another, and this all the more as you see the day drawing
       near. (Heb 10:24-25)
-    </h5>
-    <h3>
+    </h4>
+    <h2>
       Go read some <a href="posts">posts</a> or update your
       <a href="profile">profile</a>!
-    </h3>
+    </h2>
   </div>
 </ng-container>
 
 <ng-template #login>
-  <h3>Howdy, Stranger</h3>
+  <h2>Howdy, Stranger</h2>
   <p>Get started by logging in below.</p>
   <p>
     Logging in will provide the forum with your name, profile picture, and email

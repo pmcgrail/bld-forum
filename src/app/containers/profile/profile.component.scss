@@ -3,6 +3,10 @@ div.auth {
   align-items: center;
   justify-content: space-between;
 
+  h1 {
+    font-weight: 500;
+  }
+
   button.logout {
     height: 3em;
     padding: 1em;
@@ -17,6 +21,7 @@ p.image {
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   img {
     height: 3em;
