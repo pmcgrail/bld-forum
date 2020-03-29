@@ -9,6 +9,13 @@ import { IUser } from '../../../models/user.interface';
 import { AuthService } from '../../../providers/auth.service';
 import { IPost } from '../../../models';
 
+import {
+  POST_TITLE_MIN,
+  POST_TITLE_MAX,
+  POST_TEXT_MIN,
+  POST_TEXT_MAX,
+} from 'src/app/data';
+
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
@@ -18,13 +25,13 @@ export class NewComponent implements OnInit, OnDestroy {
   form = new FormGroup({
     title: new FormControl('', [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(50),
+      Validators.minLength(POST_TITLE_MIN),
+      Validators.maxLength(POST_TITLE_MAX),
     ]),
     text: new FormControl('', [
       Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(1000),
+      Validators.minLength(POST_TEXT_MIN),
+      Validators.maxLength(POST_TEXT_MAX),
     ]),
   });
 

@@ -6,7 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { IUser, IPost, IComment } from '../../../models';
 import { PostService, CommentService, AuthService } from '../../../providers';
-import { MAX_COMMENTS } from 'src/app/data';
+import { MAX_COMMENTS, COMMENT_MIN, COMMENT_MAX } from 'src/app/data';
 
 @Component({
   selector: 'app-view',
@@ -25,8 +25,8 @@ export class ViewComponent implements OnInit {
 
   commentText = new FormControl('', [
     Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(500),
+    Validators.minLength(COMMENT_MIN),
+    Validators.maxLength(COMMENT_MAX),
   ]);
 
   constructor(
