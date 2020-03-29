@@ -54,9 +54,11 @@
 - 0.1.0
 - [ ] split comment list into components
 - [ ] categories
+- [ ] post with links and pictures
 - [ ] status/error messages
 - [ ] firebase permissions
 - [ ] staging/prod environments
 - [ ] CI/CD
+- [ ] edit/delete/report posts and comments
 - [ ] hover user overlay
 - [ ] reusable buttons, etc.
