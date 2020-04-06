@@ -21,14 +21,14 @@
     </ng-container>
   </ng-container>
 </list-base>
-<div *ngIf="!finished" class="expand">
+<div *ngIf="!finished && hasPosts" class="expand">
   <button (click)="loadMore()">
     <span>Load more</span>
     <i class="material-icons">keyboard_arrow_down</i>
   </button>
 </div>
 <div
-  *ngIf="finished && !(posts$[0] | async).length"
+  *ngIf="finished && !hasPosts"
   class="no-posts">
   No posts yet
 </div>

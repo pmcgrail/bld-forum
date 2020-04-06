@@ -14,7 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListComponent implements OnInit {
   end: Date;
-  finished = true;
+  finished = false;
+  hasPosts = false;
   category: string;
   posts$: Observable<IPost[]>[];
 
@@ -33,6 +34,7 @@ export class ListComponent implements OnInit {
 
   postsLoaded = (posts: IPost[]) => {
     const length = posts.length;
+    this.hasPosts = this.hasPosts || !!length;
     if (!length || length < MAX_POSTS) {
       this.finished = true;
     } else {

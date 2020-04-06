@@ -1,8 +1,8 @@
 .header {
-  display: flex;
+  display: grid;
   margin-bottom: 1em;
   align-items: center;
-  justify-content: space-between;
+  grid-template-columns: 7em auto 7em;
 
   h1 {
     margin-bottom: 0;
