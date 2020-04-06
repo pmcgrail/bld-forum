@@ -1,5 +1,5 @@
 <li>
-  <a [href]="link">
+  <a [ngClass]="subtext ? 'with-subtext' : 'no-subtext'" [href]="link">
     <span class="text">{{ text }}</span>
     <ng-content></ng-content>
     <span class="subtext">{{ subtext }}</span>

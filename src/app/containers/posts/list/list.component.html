@@ -1,0 +1,27 @@
+<div class="new-post">
+  <a href="posts/new"> New Post </a>
+</div>
+<list-base>
+  <ng-container *ngFor="let segment$ of posts$">
+    <ng-container *ngIf="segment$ | async as segment; else loading">
+      <list-item
+        *ngFor="let post of segment"
+        [link]="'posts/view/' + post.uid"
+        [text]="post.title"
+        [subtext]="post.createdDate | date: 'MMM, d yyyy h:mm a'"
+      >
+        <app-user-tag [userId]="post.userId"></app-user-tag>
+      </list-item>
+    </ng-container>
+  </ng-container>
+</list-base>
+<div *ngIf="!finished" class="expand">
+  <button (click)="loadMore()">
+    <span>Load more</span>
+    <i class="material-icons">keyboard_arrow_down</i>
+  </button>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

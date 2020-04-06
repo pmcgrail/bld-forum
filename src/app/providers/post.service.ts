@@ -28,9 +28,10 @@ const mapSortDates = (posts: any[]) => {
 export class PostService {
   constructor(private fireStore: AngularFirestore) {}
 
-  getPosts(from?: Date): Observable<IPost[]> {
+  getPosts(category: string, from?: Date): Observable<IPost[]> {
     const pagedQuery = (ref: CollectionReference) => {
       return ref
+        .where('category', '==', category)
         .orderBy('lastActionDate', 'desc')
         .startAfter(from ? from : MAX_DATE)
         .limit(MAX_POSTS);

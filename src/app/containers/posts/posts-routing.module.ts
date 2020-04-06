@@ -6,6 +6,7 @@ import { AuthGuard } from 'src/app/providers/auth.guard';
 import { PostsComponent } from './posts.component';
 import { ViewComponent } from './view/view.component';
 import { NavResolver } from 'src/app/providers/nav.resolver';
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,15 @@ const routes: Routes = [
     },
   },
   {
-    path: 'posts/:postId',
+    path: 'posts/:category',
+    component: ListComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      _: NavResolver,
+    },
+  },
+  {
+    path: 'posts/view/:postId',
     component: ViewComponent,
     canActivate: [AuthGuard],
     resolve: {

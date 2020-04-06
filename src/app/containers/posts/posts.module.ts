@@ -13,6 +13,7 @@ import { PostCardComponent } from '../../components/post-card/post-card.componen
 import { CommentCardComponent } from 'src/app/components/comment-card/comment-card.component';
 import { UserTagComponent } from 'src/app/components/user-tag/user-tag.component';
 import { PaginationComponent } from 'src/app/components/pagination/pagination.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PaginationComponent } from 'src/app/components/pagination/pagination.co
     CommentCardComponent,
     UserTagComponent,
     PaginationComponent,
+    ListComponent,
   ],
   imports: [
     CommonModule,

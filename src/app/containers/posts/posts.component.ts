@@ -1,46 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { PostService } from '../../providers';
-import { IPost } from '../../models';
-import { MAX_POSTS } from 'src/app/data';
+import { ICategory } from '../../models';
+import { CategoryService } from 'src/app/providers/category.service';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements OnInit, OnDestroy {
-  users$;
-  end: Date;
-  finished = false;
-  posts$: Observable<IPost[]>[];
-  destroy$: Subject<null> = new Subject();
+export class PostsComponent implements OnInit {
+  categories$: Observable<ICategory[]>;
 
-  constructor(private service: PostService) {}
-
-  loadMore() {
-    this.posts$.push(
-      this.service.getPosts(this.end).pipe(tap(this.postsLoaded))
-    );
-  }
-
-  postsLoaded = (posts: IPost[]) => {
-    const length = posts.length;
-    if (!length || length < MAX_POSTS) {
-      this.finished = true;
-    } else {
-      this.end = posts[length - 1].lastActionDate;
-    }
-  };
+  constructor(private service: CategoryService) {}
 
   ngOnInit() {
-    this.posts$ = [this.service.getPosts().pipe(tap(this.postsLoaded))];
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.categories$ = this.service.categories$;
   }
 }
