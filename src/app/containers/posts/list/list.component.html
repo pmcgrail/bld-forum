@@ -1,7 +1,11 @@
 <div class="header">
   <app-back-button [link]="'posts'"></app-back-button>
   <h1>{{ category }}</h1>
-  <a class="new-post" [href]="'posts/' + category + '/new'"> New Post </a>
+  <a
+    class="new-post"
+    [href]="'posts/' + category + '/new'">
+    New Post
+  </a>
 </div>
 <list-base>
   <ng-container *ngFor="let segment$ of posts$">
@@ -22,6 +26,11 @@
     <span>Load more</span>
     <i class="material-icons">keyboard_arrow_down</i>
   </button>
+</div>
+<div
+  *ngIf="finished && !(posts$[0] | async).length"
+  class="no-posts">
+  No posts yet
 </div>
 
 <ng-template #loading>
