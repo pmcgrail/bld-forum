@@ -1,8 +1,14 @@
-.new-post {
+.header {
   display: flex;
   margin-bottom: 1em;
+  align-items: center;
+  justify-content: space-between;
 
-  a {
+  h1 {
+    margin-bottom: 0;
+  }
+
+  a.new-post {
     width: 5em;
     padding: 1em;
     color: #ffffff;

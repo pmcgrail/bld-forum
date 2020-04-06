@@ -14,6 +14,7 @@ import { CommentCardComponent } from 'src/app/components/comment-card/comment-ca
 import { UserTagComponent } from 'src/app/components/user-tag/user-tag.component';
 import { PaginationComponent } from 'src/app/components/pagination/pagination.component';
 import { ListComponent } from './list/list.component';
+import { BackButtonComponent } from 'src/app/components/back-button/back-button.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ListComponent } from './list/list.component';
     UserTagComponent,
     PaginationComponent,
     ListComponent,
+    BackButtonComponent,
   ],
   imports: [
     CommonModule,

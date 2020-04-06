@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { PostService } from '../../../providers/post.service';
 import { IUser } from '../../../models/user.interface';
@@ -35,15 +35,18 @@ export class NewComponent implements OnInit, OnDestroy {
     ]),
   });
 
-  userName: string;
   userId: string;
+  category: string;
+  userName: string;
   destroy$: Subject<null> = new Subject();
 
   constructor(
     private router: Router,
     private auth: AuthService,
-    private service: PostService
+    private service: PostService,
+    private route: ActivatedRoute
   ) {
+    this.category = this.route.snapshot.params['category'];
     this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((user: IUser) => {
       this.userName = user.displayName;
       this.userId = user.uid;
@@ -69,10 +72,11 @@ export class NewComponent implements OnInit, OnDestroy {
     const data: IPost = {
       ...this.form.value,
       userId: this.userId,
+      category: this.category,
       createdDate: new Date(),
     };
     this.service.createPost(data).then(() => {
-      this.router.navigate(['/posts']);
+      this.router.navigate([`/posts/${this.category}`]);
     });
   }
 

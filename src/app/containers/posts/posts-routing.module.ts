@@ -18,14 +18,6 @@ const routes: Routes = [
     },
   },
   {
-    path: 'posts/new',
-    component: NewComponent,
-    canActivate: [AuthGuard],
-    resolve: {
-      _: NavResolver,
-    },
-  },
-  {
     path: 'posts/:category',
     component: ListComponent,
     canActivate: [AuthGuard],
@@ -34,7 +26,15 @@ const routes: Routes = [
     },
   },
   {
-    path: 'posts/view/:postId',
+    path: 'posts/:category/new',
+    component: NewComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      _: NavResolver,
+    },
+  },
+  {
+    path: 'posts/:category/view/:postId',
     component: ViewComponent,
     canActivate: [AuthGuard],
     resolve: {

@@ -1,7 +1,6 @@
-<a class="back" href="posts">
-  <i class="material-icons">keyboard_arrow_left</i>
-  <span>Back</span>
-</a>
+<div class="back">
+  <app-back-button [link]="'posts/' + category"></app-back-button>
+</div>
 <div class="container">
   <form [formGroup]="form">
     <div class="user">

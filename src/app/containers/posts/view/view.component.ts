@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
   pages: number;
   authId: string;
   postId: string;
+  category: string;
   loadingComments = false;
   post$: Observable<IPost>;
   comments$: Observable<IComment[]>;
@@ -39,6 +40,7 @@ export class ViewComponent implements OnInit {
       this.authId = authUser.uid;
     });
     this.postId = this.route.snapshot.params['postId'];
+    this.category = this.route.snapshot.params['category'];
   }
 
   loadPrevComments() {

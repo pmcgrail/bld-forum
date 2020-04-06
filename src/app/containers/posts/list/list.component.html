@@ -1,12 +1,14 @@
-<div class="new-post">
-  <a href="posts/new"> New Post </a>
+<div class="header">
+  <app-back-button [link]="'posts'"></app-back-button>
+  <h1>{{ category }}</h1>
+  <a class="new-post" [href]="'posts/' + category + '/new'"> New Post </a>
 </div>
 <list-base>
   <ng-container *ngFor="let segment$ of posts$">
     <ng-container *ngIf="segment$ | async as segment; else loading">
       <list-item
         *ngFor="let post of segment"
-        [link]="'posts/view/' + post.uid"
+        [link]="'posts/' + category + '/view/' + post.uid"
         [text]="post.title"
         [subtext]="post.createdDate | date: 'MMM, d yyyy h:mm a'"
       >
