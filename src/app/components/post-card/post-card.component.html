@@ -5,7 +5,9 @@
   <ng-container *ngIf="post.linkType">
     <span *ngIf="post.linkType === 1" class="link">
       Open Link<i class="material-icons">keyboard_arrow_right</i>
-      <a [href]="post.url"> {{ post.url }}</a>
+      <a target="_blank" [href]="post.url"
+        ><strong>{{ post.url }}</strong></a
+      >
     </span>
     <div *ngIf="post.linkType === 2" class="image">
       <img [src]="post.url" />
