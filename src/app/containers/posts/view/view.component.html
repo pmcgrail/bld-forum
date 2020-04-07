@@ -23,9 +23,7 @@
 </div>
 
 <ng-template #noComments [ngSwitch]="loadingComments">
-  <mat-progress-bar
-    *ngSwitchCase="true"
-    mode="indeterminate">
+  <mat-progress-bar *ngSwitchCase="true" mode="indeterminate">
   </mat-progress-bar>
   <div *ngSwitchCase="false" class="no-comments">No comments yet</div>
 </ng-template>

@@ -1,5 +1,8 @@
+import { AttachmentTypes } from '../data/enums';
+
 export class IPost {
   uid?: string; //dynamically added
+  userName?: string; //dynamically added
 
   text: string;
   title: string;
@@ -7,6 +10,6 @@ export class IPost {
   createdDate: Date;
   lastActionDate?: Date;
   commentCounter?: number;
-
-  userName?: string; //dynamically added
+  linkType?: AttachmentTypes;
+  url?: string;
 }

@@ -4,7 +4,8 @@
 <div class="container">
   <form [formGroup]="form">
     <div class="user">
-      Posting as <strong>{{ userName }}</strong>
+      Posting as <strong>{{ userName }}</strong> in
+      <strong>{{ category }}</strong>
     </div>
     <input
       type="text"
@@ -15,6 +16,18 @@
         required: validateInput('title')
       }"
     />
+    <div class="link">
+      <label>Link</label>
+      <select formControlName="linkType">
+        <option [value]="0">None</option>
+        <option [value]="1">URL</option>
+        <option [value]="2">Image</option>
+      </select>
+    </div>
+    <div *ngIf="form.get('linkType').value !== 0" class="url">
+      <span>http://</span>
+      <input type="text" formControlName="url" />
+    </div>
     <textarea
       class="text"
       placeholder="Text"

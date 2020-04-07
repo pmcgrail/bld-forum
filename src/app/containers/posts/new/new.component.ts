@@ -28,6 +28,8 @@ export class NewComponent implements OnInit, OnDestroy {
       Validators.minLength(POST_TITLE_MIN),
       Validators.maxLength(POST_TITLE_MAX),
     ]),
+    linkType: new FormControl(0, []),
+    url: new FormControl('', []),
     text: new FormControl('', [
       Validators.required,
       Validators.minLength(POST_TEXT_MIN),
@@ -69,11 +71,14 @@ export class NewComponent implements OnInit, OnDestroy {
   }
 
   createPost() {
+    const url = this.form.get('url').value;
     const data: IPost = {
       ...this.form.value,
       userId: this.userId,
       category: this.category,
       createdDate: new Date(),
+      linkType: Number(this.form.get('linkType').value),
+      url: url ? `http://${url}` : null,
     };
     this.service.createPost(data).then(() => {
       this.router.navigate([`/posts/${this.category}`]);

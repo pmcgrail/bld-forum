@@ -9,19 +9,33 @@
 
   form {
     display: grid;
-    grid-template-columns: auto 5em;
-    grid-template-rows: auto auto auto auto;
+    grid-template:
+      'user user' auto
+      'title title' auto
+      'link link' auto
+      'url url' auto
+      'text text' auto
+      'errors button' auto / auto 5em;
+
+    @media screen and (min-width: 768px) {
+      grid-template:
+        'user user user' auto
+        'title title title' auto
+        'link url url' auto
+        'text text text' auto
+        'errors errors button' auto / 20em auto 5em;
+    }
   }
 
   .user {
-    grid-column: 1 / span 2;
+    grid-area: user;
 
     color: #606060;
     margin-bottom: 1em;
   }
 
   .title {
-    grid-column: 1 / span 2;
+    grid-area: title;
 
     padding: 0.5em;
     font-size: 1.2em;
@@ -34,8 +48,53 @@
     }
   }
 
+  .link {
+    grid-area: link;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 1em;
+
+    @media screen and (min-width: 768px) {
+      margin-right: 1em;
+    }
+
+    label {
+      color: #606060;
+    }
+
+    select {
+      padding: 0.5em;
+      border-style: none;
+      border-radius: 0.25em;
+    }
+  }
+
+  .url {
+    grid-area: url;
+    display: flex;
+
+    position: relative;
+    margin-bottom: 1em;
+
+    span {
+      top: 4px;
+      left: 4px;
+      color: #c0c0c0;
+      position: absolute;
+    }
+
+    input {
+      width: 100%;
+      border-style: none;
+      border-radius: 0.25em;
+      padding: 0.5em 0.5em 0.5em 3.2em;
+    }
+  }
+
   .text {
-    grid-column: 1 / span 2;
+    grid-area: text;
 
     resize: none;
     padding: 0.5em;
@@ -50,15 +109,13 @@
   }
 
   .errors {
-    grid-row: 4;
-    grid-column: 1;
+    grid-area: errors;
 
     color: #ff6060;
   }
 
   button {
-    grid-row: 4;
-    grid-column: 2;
+    grid-area: button;
 
     color: #ffffff;
     padding: 1em;
