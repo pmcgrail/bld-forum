@@ -30,4 +30,8 @@
 .no-posts {
   margin: 1em;
   text-align: center;
+
+  &.error {
+    color: #ff6060;
+  }
 }

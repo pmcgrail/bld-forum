@@ -52,20 +52,14 @@ export class ViewComponent implements OnInit {
     this.onCommentsLoading();
     this.comments$ = this.commentService
       .getComments(this.postId, false, this.start)
-      .pipe(
-        tap(this.onCommentsLoaded),
-        catchError((error) => this.onCommentsError(error))
-      );
+      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
   }
 
   loadNextComments() {
     this.onCommentsLoading();
     this.comments$ = this.commentService
       .getComments(this.postId, true, this.end)
-      .pipe(
-        tap(this.onCommentsLoaded),
-        catchError((error) => this.onCommentsError(error))
-      );
+      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
   }
 
   saveComment() {
@@ -84,32 +78,32 @@ export class ViewComponent implements OnInit {
     );
   }
 
-  onPostError(error) {
+  onPostError = (error) => {
     console.error(error);
     this.postError = true;
     return of(undefined);
-  }
+  };
 
-  onCommentsLoading() {
+  onCommentsLoading = () => {
     this.commentsLoading = true;
     this.commentsError = false;
-  }
+  };
 
-  onCommentsLoaded(comments: IComment[]) {
+  onCommentsLoaded = (comments: IComment[]) => {
     this.commentsLoading = false;
     this.commentsError = false;
     if (comments.length) {
       this.start = comments[0].createdDate;
       this.end = comments[comments.length - 1].createdDate;
     }
-  }
+  };
 
-  onCommentsError(error) {
+  onCommentsError = (error) => {
     console.error(error);
     this.commentsLoading = false;
     this.commentsError = true;
-    return [];
-  }
+    return of([]);
+  };
 
   ngOnInit() {
     this.post$ = this.service.getPost(this.postId).pipe(
@@ -117,12 +111,11 @@ export class ViewComponent implements OnInit {
         (post: IPost) =>
           (this.pages = Math.ceil(post.commentCounter / MAX_COMMENTS))
       ),
-      catchError((error) => this.onPostError(error))
+      catchError(this.onPostError)
     );
     this.onCommentsLoading();
-    this.comments$ = this.commentService.getComments(this.postId).pipe(
-      tap(this.onCommentsLoaded),
-      catchError((error) => this.onCommentsError(error))
-    );
+    this.comments$ = this.commentService
+      .getComments(this.postId)
+      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
   }
 }

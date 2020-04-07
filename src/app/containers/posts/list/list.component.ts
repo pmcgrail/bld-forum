@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 import { PostService } from '../../../providers';
 import { IPost } from '../../../models';
 import { MAX_POSTS } from 'src/app/data';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -17,22 +17,23 @@ export class ListComponent implements OnInit {
   finished = false;
   hasPosts = false;
   category: string;
-  posts$: Observable<IPost[]>[];
+  postsError = false;
+  posts: Observable<IPost[]>[] = [];
 
   constructor(private route: ActivatedRoute, private service: PostService) {
     this.category = this.route.snapshot.params['category'];
   }
 
   loadMore() {
-    this.posts$ = [
-      ...this.posts$,
+    this.posts = [
+      ...this.posts,
       this.service
         .getPosts(this.category, this.end)
-        .pipe(tap(this.postsLoaded)),
+        .pipe(tap(this.onPostsLoaded), catchError(this.onPostsError)),
     ];
   }
 
-  postsLoaded = (posts: IPost[]) => {
+  onPostsLoaded = (posts: IPost[]) => {
     const length = posts.length;
     this.hasPosts = this.hasPosts || !!length;
     if (!length || length < MAX_POSTS) {
@@ -43,9 +44,17 @@ export class ListComponent implements OnInit {
     }
   };
 
+  onPostsError = (error) => {
+    console.error(error);
+    this.postsError = true;
+    return of([]);
+  };
+
   ngOnInit() {
-    this.posts$ = [
-      this.service.getPosts(this.category).pipe(tap(this.postsLoaded)),
+    this.posts = [
+      this.service
+        .getPosts(this.category)
+        .pipe(tap(this.onPostsLoaded), catchError(this.onPostsError)),
     ];
   }
 }
