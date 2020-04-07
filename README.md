@@ -52,13 +52,17 @@
   - [x] UI components
 - [x] hosting
 - 0.1.0
-- [ ] split comment list into components
-- [ ] categories
+- [x] categories
 - [ ] post with links and pictures
 - [ ] status/error messages
+- 0.2.0
 - [ ] firebase permissions
 - [ ] staging/prod environments
 - [ ] CI/CD
+- 0.3.0
+- [ ] split comment list into components
 - [ ] edit/delete/report posts and comments
 - [ ] hover user overlay
+- 1.0.0
 - [ ] reusable buttons, etc.
+- [ ] admin functions
