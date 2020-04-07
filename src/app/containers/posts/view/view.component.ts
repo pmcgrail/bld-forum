@@ -29,6 +29,9 @@ export class ViewComponent implements OnInit {
   commentsLoading = false;
   comments$: Observable<IComment[]>;
 
+  saveCommentError = false;
+  saveCommentLoading = false;
+
   commentText = new FormControl('', [
     Validators.required,
     Validators.minLength(COMMENT_MIN),
@@ -68,15 +71,27 @@ export class ViewComponent implements OnInit {
       userId: this.authId,
       createdDate: new Date(),
     };
-    this.commentService.createComment(this.postId, data).then(
-      () => {
-        this.commentText.reset();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.onSaveComment();
+    this.commentService
+      .createComment(this.postId, data)
+      .then(this.onSaveCommentSuccess, this.onSaveCommentError);
   }
+
+  onSaveComment = () => {
+    this.saveCommentLoading = true;
+    this.saveCommentError = false;
+  };
+
+  onSaveCommentSuccess = () => {
+    this.saveCommentLoading = false;
+    this.commentText.reset();
+  };
+
+  onSaveCommentError = (error) => {
+    console.error(error);
+    this.saveCommentLoading = false;
+    this.saveCommentError = true;
+  };
 
   onPostError = (error) => {
     console.error(error);

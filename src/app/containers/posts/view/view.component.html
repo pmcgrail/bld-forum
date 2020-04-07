@@ -17,7 +17,12 @@
     </app-pagination>
   </div>
   <div>
-    <app-comment-form [text]="commentText" (saveComment)="saveComment()">
+    <app-comment-form
+      [textControl]="commentText"
+      [error]="saveCommentError"
+      [loading]="saveCommentLoading"
+      (saveComment)="saveComment()"
+    >
     </app-comment-form>
   </div>
 </div>

@@ -1,12 +1,18 @@
 <div class="container">
+  <div *ngIf="error" class="error">Error creating comment</div>
   <textarea
     type="text"
-    [formControl]="text"
+    [formControl]="textControl"
     [ngClass]="{ expand: expand, required: validateInput() }"
   ></textarea>
-  <button class="save" [disabled]="!text.valid" (click)="onSaveComment()">
+  <button
+    class="save"
+    [disabled]="!textControl.valid"
+    (click)="onSaveComment()"
+  >
     <i class="material-icons">keyboard_arrow_right</i>
   </button>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"> </mat-progress-bar>
   <button class="expand" *ngIf="!expand" (click)="expand = true">
     <i class="material-icons">keyboard_arrow_down</i>
   </button>

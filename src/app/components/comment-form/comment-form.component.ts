@@ -7,22 +7,26 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent implements OnInit {
-  @Input()
-  text: FormControl;
+  @Input() error: boolean;
+  @Input() loading: boolean;
+  @Input() textControl: FormControl;
 
-  @Output()
-  saveComment: EventEmitter<null> = new EventEmitter();
+  @Output() saveComment: EventEmitter<null> = new EventEmitter();
 
   expand = false;
 
   constructor() {}
 
   validateInput() {
-    return this.text.touched && this.text.dirty && this.text.errors;
+    return (
+      this.textControl.touched &&
+      this.textControl.dirty &&
+      this.textControl.errors
+    );
   }
 
   onSaveComment() {
-    if (this.text.valid) {
+    if (this.textControl.valid) {
       this.saveComment.emit();
     }
   }
