@@ -55,6 +55,13 @@
 - [x] categories
 - [x] post with links and pictures
 - [ ] status/error messages
+  - [x] get posts
+  - [x] new post
+  - [x] get comments
+  - [x] new comment
+  - [ ] get categories
+  - [ ] get profile
+  - [ ] update profile
 - 0.2.0
 - [ ] auto posts for daily readings and praye requests (weekly)
 - [ ] firebase permissions
