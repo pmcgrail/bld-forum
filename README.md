@@ -56,11 +56,13 @@
 - [x] post with links and pictures
 - [ ] status/error messages
 - 0.2.0
+- [ ] auto posts for daily readings and praye requests (weekly)
 - [ ] firebase permissions
+- 0.3.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
-- 0.3.0
+- 0.4.0
 - [ ] member approvals
 - [ ] edit/delete/report posts and comments
 - 1.0.0
