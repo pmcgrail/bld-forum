@@ -7,7 +7,17 @@
   grid-template-areas:
     'user date'
     'title title'
+    'link link'
+    'image image'
     'text text';
+
+  @media screen and (min-width: 768px) {
+    grid-template-areas:
+      'user date'
+      'title link'
+      'image image'
+      'text text';
+  }
 
   .user {
     grid-area: user;
@@ -28,6 +38,30 @@
     margin: 0.5em 0;
     color: #404040;
     font-weight: 500;
+  }
+
+  .link {
+    grid-area: link;
+
+    display: flex;
+    font-weight: 500;
+    margin-bottom: 1em;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      margin-top: 1em;
+    }
+  }
+
+  .image {
+    grid-area: image;
+
+    text-align: center;
+    margin-bottom: 1em;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .text {

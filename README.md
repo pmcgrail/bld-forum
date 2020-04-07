@@ -53,7 +53,7 @@
 - [x] hosting
 - 0.1.0
 - [x] categories
-- [ ] post with links and pictures
+- [x] post with links and pictures
 - [ ] status/error messages
 - 0.2.0
 - [ ] firebase permissions
@@ -66,3 +66,4 @@
 - 1.0.0
 - [ ] reusable buttons, etc.
 - [ ] admin functions
+- [ ] image uploads
