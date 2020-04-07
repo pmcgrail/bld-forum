@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { PostService } from '../../../providers/post.service';
@@ -21,7 +20,7 @@ import {
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.scss'],
 })
-export class NewComponent implements OnInit, OnDestroy {
+export class NewComponent implements OnInit {
   form = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -40,7 +39,8 @@ export class NewComponent implements OnInit, OnDestroy {
   userId: string;
   category: string;
   userName: string;
-  destroy$: Subject<null> = new Subject();
+  postError = false;
+  postLoading = false;
 
   constructor(
     private router: Router,
@@ -49,7 +49,7 @@ export class NewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     this.category = this.route.snapshot.params['category'];
-    this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((user: IUser) => {
+    this.auth.user$.pipe(take(1)).subscribe((user: IUser) => {
       this.userName = user.displayName;
       this.userId = user.uid;
     });
@@ -70,7 +70,24 @@ export class NewComponent implements OnInit, OnDestroy {
     }
   }
 
+  onPostCreate = () => {
+    this.postLoading = true;
+    this.postError = false;
+  };
+
+  onPostSuccess = () => {
+    this.postLoading = false;
+    this.router.navigate([`/posts/${this.category}`]);
+  };
+
+  onPostError = (error) => {
+    console.error(error);
+    this.postLoading = false;
+    this.postError = true;
+  };
+
   createPost() {
+    this.onPostCreate();
     const url = this.form.get('url').value;
     const data: IPost = {
       ...this.form.value,
@@ -80,15 +97,8 @@ export class NewComponent implements OnInit, OnDestroy {
       linkType: Number(this.form.get('linkType').value),
       url: url ? `http://${url}` : null,
     };
-    this.service.createPost(data).then(() => {
-      this.router.navigate([`/posts/${this.category}`]);
-    });
+    this.service.createPost(data).then(this.onPostSuccess, this.onPostError);
   }
 
   ngOnInit() {}
-
-  ngOnDestroy() {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
 }
