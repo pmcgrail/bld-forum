@@ -58,12 +58,14 @@
 - 0.2.0
 - [ ] firebase permissions
 - [ ] staging/prod environments
+- [ ] unit tests
 - [ ] CI/CD
 - 0.3.0
-- [ ] split comment list into components
+- [ ] member approvals
 - [ ] edit/delete/report posts and comments
-- [ ] hover user overlay
 - 1.0.0
+- [ ] hover user overlay
+- [ ] split comment list into components
 - [ ] reusable buttons, etc.
 - [ ] admin functions
 - [ ] image uploads
