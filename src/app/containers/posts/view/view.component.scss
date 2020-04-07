@@ -2,12 +2,22 @@
   margin-bottom: 1em;
 }
 
+.post-error {
+  margin: 1em;
+  color: #ff6060;
+  text-align: center;
+}
+
 .pagination {
   display: flex;
   justify-content: flex-end;
 }
 
-.no-comments {
+.comments-empty {
   margin: 1em;
   text-align: center;
+
+  &.error {
+    color: #ff6060;
+  }
 }

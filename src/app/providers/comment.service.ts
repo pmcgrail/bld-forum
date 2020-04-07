@@ -62,7 +62,7 @@ export class CommentService {
       .doc(postId)
       .collection('comments')
       .add(comment)
-      .then(updatePost, error => {
+      .then(updatePost, (error) => {
         console.log(error);
       });
   }

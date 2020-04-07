@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { take, tap, catchError } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 
 import { IUser, IPost, IComment } from '../../../models';
@@ -14,14 +14,19 @@ import { MAX_COMMENTS, COMMENT_MIN, COMMENT_MAX } from 'src/app/data';
   styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent implements OnInit {
-  end: Date;
-  start: Date;
-  pages: number;
   authId: string;
   postId: string;
   category: string;
-  loadingComments = false;
+
+  end: Date;
+  start: Date;
+  pages: number;
+
+  postError = false;
   post$: Observable<IPost>;
+
+  commentsError = false;
+  commentsLoading = false;
   comments$: Observable<IComment[]>;
 
   commentText = new FormControl('', [
@@ -44,17 +49,23 @@ export class ViewComponent implements OnInit {
   }
 
   loadPrevComments() {
-    this.loadingComments = true;
+    this.onCommentsLoading();
     this.comments$ = this.commentService
       .getComments(this.postId, false, this.start)
-      .pipe(tap(this.commentsLoaded));
+      .pipe(
+        tap(this.onCommentsLoaded),
+        catchError((error) => this.onCommentsError(error))
+      );
   }
 
   loadNextComments() {
-    this.loadingComments = true;
+    this.onCommentsLoading();
     this.comments$ = this.commentService
       .getComments(this.postId, true, this.end)
-      .pipe(tap(this.commentsLoaded));
+      .pipe(
+        tap(this.onCommentsLoaded),
+        catchError((error) => this.onCommentsError(error))
+      );
   }
 
   saveComment() {
@@ -67,32 +78,51 @@ export class ViewComponent implements OnInit {
       () => {
         this.commentText.reset();
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
   }
 
-  commentsLoaded = (comments: IComment[]) => {
-    this.loadingComments = false;
+  onPostError(error) {
+    console.error(error);
+    this.postError = true;
+    return of(undefined);
+  }
+
+  onCommentsLoading() {
+    this.commentsLoading = true;
+    this.commentsError = false;
+  }
+
+  onCommentsLoaded(comments: IComment[]) {
+    this.commentsLoading = false;
+    this.commentsError = false;
     if (comments.length) {
       this.start = comments[0].createdDate;
       this.end = comments[comments.length - 1].createdDate;
     }
-  };
+  }
+
+  onCommentsError(error) {
+    console.error(error);
+    this.commentsLoading = false;
+    this.commentsError = true;
+    return [];
+  }
 
   ngOnInit() {
-    this.post$ = this.service
-      .getPost(this.postId)
-      .pipe(
-        tap(
-          (post: IPost) =>
-            (this.pages = Math.ceil(post.commentCounter / MAX_COMMENTS))
-        )
-      );
-    this.loadingComments = true;
-    this.comments$ = this.commentService
-      .getComments(this.postId)
-      .pipe(tap(this.commentsLoaded));
+    this.post$ = this.service.getPost(this.postId).pipe(
+      tap(
+        (post: IPost) =>
+          (this.pages = Math.ceil(post.commentCounter / MAX_COMMENTS))
+      ),
+      catchError((error) => this.onPostError(error))
+    );
+    this.onCommentsLoading();
+    this.comments$ = this.commentService.getComments(this.postId).pipe(
+      tap(this.onCommentsLoaded),
+      catchError((error) => this.onCommentsError(error))
+    );
   }
 }
