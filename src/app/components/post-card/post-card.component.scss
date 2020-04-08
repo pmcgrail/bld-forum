@@ -44,8 +44,15 @@
     grid-area: link;
 
     display: flex;
+    overflow: hidden;
     margin-bottom: 1em;
     align-items: center;
+    white-space: nowrap;
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     @media screen and (min-width: 768px) {
       margin-top: 1em;
