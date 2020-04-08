@@ -34,8 +34,9 @@ service cloud.firestore {
         && fieldUnchanged('url');
     }
 
-    function fieldUnchanged(key) {}
+    function fieldUnchanged(key) {
       return key in resource.data ? resource.data[key] == request.resource.data[key] : true;
+    }
     
     function isOwner(userId) {
     	return request.auth.uid == userId;
