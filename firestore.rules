@@ -14,13 +14,20 @@ service cloud.firestore {
       match /comments/{commentId} {
       	allow read: if isLoggedIn();
         allow create: if isOwner(request.resource.data.userId);
-        allow update, delete: if isOwner(resource.data.userId);
+        allow update: if isOwner(resource.data.userId) || canUpdatePostMetadata();
+        allow delete: if isOwner(resource.data.userId);
       }
     }
     
     match /categories/{categoryId} {
     	allow read: if true;
       allow write: if false;
+    }
+    
+    function canUpdatePostMetadata() {
+    	return isLoggedIn() && !request.resource.data.keys().hasAny(
+      	['text', 'title', 'userId', 'createdDate', 'linkType', 'url']
+      );
     }
     
     function isOwner(userId) {
