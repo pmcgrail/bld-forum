@@ -18,7 +18,6 @@
   - [x] update user info
 - [x] about page
 - [x] responsive layouts
-  - [ ] fix nav header
 - [x] order posts by comment date
 - [x] character limits
 - [x] paged queries
@@ -35,18 +34,20 @@
   - [x] get comments
   - [x] new comment
   - [x] get categories
-  - [ ] get profile
+  - [ ] get profile\*\*\*
   - [x] update profile
-- 0.2.0
 - [x] auto posts for readings (daily) and prayer requests (weekly)
 - [x] firebase permissions
 - [x] limit categories
+- 0.2.0
+- [ ] delete/report posts and comments
+- [ ] remove test category
+- [ ] fix nav header
 - 0.3.0
-- [ ] edit/delete/report posts and comments
-- 0.4.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
+- 0.4.0
 - 1.0.0
 - [ ] member approvals
 - [ ] hover user overlay
