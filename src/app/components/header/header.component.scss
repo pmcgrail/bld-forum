@@ -1,8 +1,8 @@
 .container {
-  background: #404040;
-
   display: flex;
+  overflow-x: scroll;
   flex-direction: row;
+  background: #404040;
 
   .tab {
     display: flex;

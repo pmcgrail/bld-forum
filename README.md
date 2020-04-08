@@ -40,14 +40,16 @@
 - [x] firebase permissions
 - [x] limit categories
 - 0.2.0
-- [ ] delete/report posts and comments
+- [ ] delete own posts and comments
 - [ ] remove test category
-- [ ] fix nav header
+- [x] fix nav header
 - 0.3.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
 - 0.4.0
+- [ ] report posts and comments
+- [ ] edit posts and comments
 - 1.0.0
 - [ ] member approvals
 - [ ] hover user overlay
