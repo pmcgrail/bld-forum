@@ -65,7 +65,7 @@
 - 0.2.0
 - [ ] auto posts for daily readings and praye requests (weekly)
 - [x] firebase permissions
-- [ ] limit categories
+- [x] limit categories
 - 0.3.0
 - [ ] staging/prod environments
 - [ ] unit tests
