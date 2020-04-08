@@ -17,6 +17,7 @@ import { AuthGuard } from './providers/auth.guard';
 import { HeaderComponent } from './components/header/header.component';
 import { AboutComponent } from './containers/about/about.component';
 import { PrivacyComponent } from './containers/privacy/privacy.component';
+import { CategoryGuard } from './providers/category.guard';
 
 const config = {
   ...environment.firebaseConfig,
@@ -43,7 +44,7 @@ const config = {
 
     PostsModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, CategoryGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

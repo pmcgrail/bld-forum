@@ -7,6 +7,7 @@ import { PostsComponent } from './posts.component';
 import { ViewComponent } from './view/view.component';
 import { NavResolver } from 'src/app/providers/nav.resolver';
 import { ListComponent } from './list/list.component';
+import { CategoryGuard } from 'src/app/providers/category.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
   {
     path: 'posts/:category',
     component: ListComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CategoryGuard],
     resolve: {
       _: NavResolver,
     },
@@ -28,7 +29,7 @@ const routes: Routes = [
   {
     path: 'posts/:category/new',
     component: NewComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CategoryGuard],
     resolve: {
       _: NavResolver,
     },
@@ -36,7 +37,7 @@ const routes: Routes = [
   {
     path: 'posts/:category/view/:postId',
     component: ViewComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CategoryGuard],
     resolve: {
       _: NavResolver,
     },
