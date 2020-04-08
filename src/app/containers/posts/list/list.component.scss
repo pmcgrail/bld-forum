@@ -5,6 +5,7 @@
   grid-template-columns: 7em auto 7em;
 
   h1 {
+    color: #404040;
     margin-bottom: 0;
     text-align: center;
   }
@@ -29,6 +30,7 @@
 
 .no-posts {
   margin: 1em;
+  color: #808080;
   text-align: center;
 
   &.error {
