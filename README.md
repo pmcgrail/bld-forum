@@ -29,7 +29,7 @@
 - 0.1.0
 - [x] categories
 - [x] post with links and pictures
-- [ ] status/error messages
+- [x] status/error messages
   - [x] get posts
   - [x] new post
   - [x] get comments
@@ -38,7 +38,7 @@
   - [ ] get profile
   - [x] update profile
 - 0.2.0
-- [ ] auto posts for readings (daily) and prayer requests (weekly)
+- [x] auto posts for readings (daily) and prayer requests (weekly)
 - [x] firebase permissions
 - [x] limit categories
 - 0.3.0
