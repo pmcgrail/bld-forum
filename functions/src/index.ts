@@ -42,6 +42,7 @@ export const postDailyReadings = functions
     const lastActionDate = dateObj;
     const linkType = 1;
     const url = `http://usccb.org/bible/readings/${dateStrings.fullMonth}${dateStrings.fullDate}${dateStrings.year}.cfm`;
+    const text = 'Post your reflections in the comments below';
     const dailyReadingsPost = {
       userId,
       category,
@@ -50,6 +51,7 @@ export const postDailyReadings = functions
       lastActionDate,
       linkType,
       url,
+      text,
     };
 
     await admin.firestore().collection('posts').add(dailyReadingsPost);
@@ -69,12 +71,14 @@ export const postWeeklyPrayers = functions
     const title = `Prayer Requests for the week of ${dateStrings.month}/${dateStrings.date}/${dateStrings.fullYear}`;
     const createdDate = dateObj;
     const lastActionDate = dateObj;
+    const text = 'Share your needs and intentions in the comments below';
     const weeklyPrayerPost = {
       userId,
       category,
       title,
       createdDate,
       lastActionDate,
+      text,
     };
 
     await admin.firestore().collection('posts').add(weeklyPrayerPost);
