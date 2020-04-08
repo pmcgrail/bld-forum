@@ -1,12 +1,21 @@
-<list-base *ngIf="categories$ | async as categories; else loading">
+<list-base *ngIf="categories$ | async as categories; else noCategories">
   <list-item
     *ngFor="let category of categories"
     [link]="'posts/' + category.name"
-    [text]="category.name">
+    [text]="category.name"
+  >
     <span class="description">{{ category.description }}</span>
   </list-item>
 </list-base>
 
-<ng-template #loading>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<ng-template #noCategories>
+  <ng-container [ngSwitch]="categoriesError">
+    <div *ngSwitchCase="true" class="categories-error">
+      Error loading post categories
+    </div>
+    <mat-progress-bar
+      *ngSwitchCase="false"
+      mode="indeterminate"
+    ></mat-progress-bar>
+  </ng-container>
 </ng-template>
