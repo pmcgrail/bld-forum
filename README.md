@@ -1,30 +1,5 @@
 # BLD Forum (Beta)
 
-## Data Models
-
-### users
-
-- displayName
-- photoURL
-- uid
-- district
-- seClass
-
-### posts
-
-- uid
-- title
-- userId
-- createdDate
-- text
-
-#### comments
-
-- uid
-- userId
-- createdDate
-- text
-
 ## TODO
 
 - [x] interfaces
@@ -63,17 +38,17 @@
   - [ ] get profile
   - [x] update profile
 - 0.2.0
-- [ ] auto posts for daily readings and praye requests (weekly)
+- [ ] auto posts for readings (daily) and prayer requests (weekly)
 - [x] firebase permissions
 - [x] limit categories
 - 0.3.0
+- [ ] edit/delete/report posts and comments
+- 0.4.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
-- 0.4.0
-- [ ] member approvals
-- [ ] edit/delete/report posts and comments
 - 1.0.0
+- [ ] member approvals
 - [ ] hover user overlay
 - [ ] split comment list into components
 - [ ] reusable buttons, etc.
