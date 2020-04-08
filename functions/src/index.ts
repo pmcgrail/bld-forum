@@ -10,22 +10,41 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-export const postDailyReadings = functions.pubsub
-  .schedule('30 12 * * *')
-  .timeZone('America/New_York')
+const REGION = 'us-east4';
+const TIME_ZONE = 'America/New_York';
+
+const USER_ID = 'ContentBot';
+
+function getDateStrings(dateObj: Date) {
+  const month = dateObj.getMonth() + 1;
+  const fullMonth = month < 10 ? `0${month}` : month.toString();
+  const date = dateObj.getDate();
+  const fullDate = date < 10 ? `0${date}` : date.toString();
+  const fullYear = dateObj.getFullYear();
+  const year = fullYear.toString().substr(2, 2);
+
+  return { month, date, year, fullMonth, fullDate, fullYear };
+}
+
+export const postDailyReadings = functions
+  .region(REGION)
+  .pubsub.schedule('0 6 * * *')
+  .timeZone(TIME_ZONE)
   .onRun(async () => {
     console.log('posting daily readings');
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const date = now.getDate();
-    const year = now.getFullYear().toString().substr(2, 2);
+    const dateObj = new Date();
+    const dateStrings = getDateStrings(dateObj);
 
-    const title = `Daily Readings for ${month}/${date}/${year}`;
-    const createdDate = now;
-    const lastActionDate = now;
+    const userId = USER_ID;
+    const category = 'Daily Readings';
+    const title = `Daily Readings for ${dateStrings.month}/${dateStrings.date}/${dateStrings.fullYear}`;
+    const createdDate = dateObj;
+    const lastActionDate = dateObj;
     const linkType = 1;
-    const url = `https://usccb.org/bible/readings/${month}${date}${year}.cfm`;
+    const url = `http://usccb.org/bible/readings/${dateStrings.fullMonth}${dateStrings.fullDate}${dateStrings.year}.cfm`;
     const dailyReadingsPost = {
+      userId,
+      category,
       title,
       createdDate,
       lastActionDate,
@@ -34,4 +53,29 @@ export const postDailyReadings = functions.pubsub
     };
 
     await admin.firestore().collection('posts').add(dailyReadingsPost);
+  });
+
+export const postWeeklyPrayers = functions
+  .region(REGION)
+  .pubsub.schedule('0 6 * * 0')
+  .timeZone(TIME_ZONE)
+  .onRun(async () => {
+    console.log('posting weekly prayer requests');
+    const dateObj = new Date();
+    const dateStrings = getDateStrings(dateObj);
+
+    const userId = USER_ID;
+    const category = 'Prayer Requests';
+    const title = `Prayer Requests for the week of ${dateStrings.month}/${dateStrings.date}/${dateStrings.fullYear}`;
+    const createdDate = dateObj;
+    const lastActionDate = dateObj;
+    const weeklyPrayerPost = {
+      userId,
+      category,
+      title,
+      createdDate,
+      lastActionDate,
+    };
+
+    await admin.firestore().collection('posts').add(weeklyPrayerPost);
   });
