@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="error" class="error">Error creating comment</div>
+  <div *ngIf="error" class="error">Error saving comment</div>
   <textarea
     type="text"
     [formControl]="textControl"
@@ -7,7 +7,7 @@
   ></textarea>
   <button
     class="save"
-    [disabled]="!textControl.valid"
+    [disabled]="!textControl.valid || loading"
     (click)="onSaveComment()"
   >
     <i class="material-icons">keyboard_arrow_right</i>

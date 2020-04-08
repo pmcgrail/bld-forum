@@ -1,7 +1,7 @@
 <div class="back">
   <app-back-button [link]="'posts/' + category"></app-back-button>
 </div>
-<div *ngIf="postError" class="post-error">Error creating post</div>
+<div *ngIf="postError" class="post-error">Error saving post</div>
 <div class="container">
   <form [formGroup]="form">
     <div class="user">
@@ -43,7 +43,9 @@
       </div>
       <div *ngIf="validateInput('text')">Text {{ getLengthError('text') }}</div>
     </div>
-    <button [disabled]="!form.valid" (click)="createPost()">Post</button>
+    <button [disabled]="!form.valid || postLoading" (click)="createPost()">
+      Post
+    </button>
   </form>
 </div>
 <mat-progress-bar *ngIf="postLoading" mode="indeterminate"></mat-progress-bar>
