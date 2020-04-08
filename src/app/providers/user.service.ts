@@ -22,14 +22,14 @@ export class UserService {
   getUsers(userIds: string[]): Observable<any> {
     return userIds.length
       ? this.fireStore
-          .collection<IUser>('users', ref => ref.where('uid', 'in', userIds))
+          .collection<IUser>('users', (ref) => ref.where('uid', 'in', userIds))
           .get()
-          .pipe(map(query => query.docs.map(doc => doc.data())))
+          .pipe(map((query) => query.docs.map((doc) => doc.data())))
       : undefined;
   }
 
   updateUser(userId: string, data) {
-    this.fireStore
+    return this.fireStore
       .collection('users')
       .doc(userId)
       .set(data, { merge: true });

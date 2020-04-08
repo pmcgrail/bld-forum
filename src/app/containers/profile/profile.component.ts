@@ -18,6 +18,9 @@ export class ProfileComponent implements OnInit {
   authUser$: Observable<IUser>;
   districts: string[] = DISTRICTS;
 
+  userError = false;
+  userLoading = false;
+
   form = new FormGroup({
     district: new FormControl('', [Validators.required]),
     seClass: new FormControl('', [
@@ -40,9 +43,26 @@ export class ProfileComponent implements OnInit {
     this.auth.signOut();
   }
 
-  saveUserInfo() {
-    this.service.updateUser(this.authId, this.form.value);
+  onSaveUserLoad = () => {
+    this.userLoading = true;
+    this.userError = false;
+  };
+
+  onSaveUserSuccess = () => {
+    this.userLoading = false;
     this.form.markAsPristine();
+  };
+
+  onSaveUserError = () => {
+    this.userLoading = false;
+    this.userError = true;
+  };
+
+  saveUserInfo() {
+    this.onSaveUserLoad();
+    this.service
+      .updateUser(this.authId, this.form.value)
+      .then(this.onSaveUserSuccess, this.onSaveUserError);
   }
 
   ngOnInit() {}

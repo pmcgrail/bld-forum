@@ -10,6 +10,7 @@
   </p>
 
   <form [formGroup]="form">
+    <div *ngIf="userError" class="user-error">Error saving user info</div>
     <div class="district">
       <label for="district">District:</label>
       <select id="district" formControlName="district">
@@ -30,10 +31,11 @@
     </div>
     <button
       class="save"
-      [disabled]="!form.valid || form.pristine"
+      [disabled]="!form.valid || form.pristine || userLoading"
       (click)="saveUserInfo()"
     >
       Save
     </button>
   </form>
+  <mat-progress-bar *ngIf="userLoading" mode="indeterminate"></mat-progress-bar>
 </div>
