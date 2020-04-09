@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IPost } from '../models';
@@ -8,7 +8,7 @@ import { MAX_POSTS, MAX_DATE } from '../data';
 
 const mapSortDates = (posts: any[]) => {
   return posts
-    .map(post => {
+    .map((post) => {
       const data = post.payload.doc.data();
       const createdDate = data.createdDate.toDate();
       const lastActionDate = data.lastActionDate.toDate();
@@ -50,11 +50,13 @@ export class PostService {
       .valueChanges()
       .pipe(
         map((post: any) => {
-          const createdDate = post.createdDate.toDate();
-          return {
-            ...post,
-            createdDate,
-          };
+          if (post) {
+            const createdDate = post.createdDate.toDate();
+            return {
+              ...post,
+              createdDate,
+            };
+          }
         })
       );
   }
@@ -65,5 +67,9 @@ export class PostService {
       lastActionDate: post.createdDate,
     };
     return this.fireStore.collection('posts').add(data);
+  }
+
+  deletePost(postId: string) {
+    return this.fireStore.collection('posts').doc(postId).delete();
   }
 }

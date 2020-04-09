@@ -1,5 +1,6 @@
 .container {
-  padding: 2em;
+  padding: 1em;
+  position: relative;
   border-radius: 0.25em;
   background: #ffffff;
 
@@ -12,6 +13,8 @@
     'text text';
 
   @media screen and (min-width: 768px) {
+    padding: 2em;
+
     grid-template-areas:
       'user date'
       'title link'
@@ -74,5 +77,22 @@
     grid-area: text;
 
     color: #404040;
+  }
+
+  .actions {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    color: #a0a0a0;
+    cursor: pointer;
+
+    &:hover {
+      color: #404040;
+    }
+
+    @media screen and (min-width: 768px) {
+      bottom: 1em;
+      right: 2em;
+    }
   }
 }

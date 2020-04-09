@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { PostsRoutingModule } from './posts-routing.module';
 import { NewComponent } from './new/new.component';
@@ -34,6 +36,8 @@ import { BackButtonComponent } from 'src/app/components/back-button/back-button.
     PostsRoutingModule,
     ReactiveFormsModule,
     MatProgressBarModule,
+    MatMenuModule,
+    MatSnackBarModule,
 
     ListModule,
   ],

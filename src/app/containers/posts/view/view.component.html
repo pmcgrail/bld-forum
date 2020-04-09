@@ -2,7 +2,8 @@
   <app-back-button [link]="'posts/' + category"></app-back-button>
 </div>
 <div *ngIf="post$ | async as post; else noPost">
-  <app-post-card [post]="post"> </app-post-card>
+  <app-post-card [post]="post" (delete)="deletePost()" (report)="reportPost()">
+  </app-post-card>
   <div *ngIf="comments$ | async as comments; else noComments">
     <ng-container *ngFor="let comment of comments">
       <app-comment-card [comment]="comment"></app-comment-card>
@@ -28,8 +29,8 @@
 </div>
 
 <ng-template #noPost>
-  <ng-container [ngSwitch]="postError">
-    <div *ngSwitchCase="true" class="post-error">Error loading post</div>
+  <ng-container [ngSwitch]="!!postError">
+    <div *ngSwitchCase="true" class="post-error">{{ postError }}</div>
     <mat-progress-bar *ngSwitchCase="false" mode="indeterminate">
     </mat-progress-bar>
   </ng-container>
