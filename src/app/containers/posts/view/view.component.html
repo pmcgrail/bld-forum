@@ -13,9 +13,5 @@
 </div>
 
 <ng-template #noPost>
-  <ng-container [ngSwitch]="!!postError">
-    <div *ngSwitchCase="true" class="post-error">{{ postError }}</div>
-    <mat-progress-bar *ngSwitchCase="false" mode="indeterminate">
-    </mat-progress-bar>
-  </ng-container>
+  <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
 </ng-template>

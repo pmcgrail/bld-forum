@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { take, tap, catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { IUser, IPost } from '../../../models';
-import { PostService, AuthService } from '../../../providers';
+import { PostService, AuthService, UIStateService } from '../../../providers';
 import { MAX_COMMENTS } from 'src/app/data';
 import { ReportService } from 'src/app/providers/report.service';
 
@@ -19,12 +18,7 @@ export class ViewComponent implements OnInit {
   authId: string;
   postId: string;
   category: string;
-
-  postError: string;
   post$: Observable<IPost>;
-
-  saveCommentError = false;
-  saveCommentLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +26,7 @@ export class ViewComponent implements OnInit {
     private service: PostService,
     private reportService: ReportService,
     private router: Router,
-    private snackbar: MatSnackBar
+    private uiService: UIStateService
   ) {
     this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
       this.authId = authUser.uid;
@@ -48,12 +42,13 @@ export class ViewComponent implements OnInit {
   }
 
   onPostDeleteSuccess = () => {
+    this.uiService.snackbar('Post deleted');
     this.router.navigate([`posts/${this.category}`]);
   };
 
   onPostDeleteError = (error) => {
     console.error(error);
-    this.postError = 'Error removing post';
+    this.uiService.snackbar('Error deleting post');
   };
 
   reportPost() {
@@ -63,15 +58,13 @@ export class ViewComponent implements OnInit {
   }
 
   onPostReportSuccess = () => {
-    this.snackbar.open('Post reported', 'Dismiss', { duration: 2000 });
+    this.uiService.snackbar('Post reported');
   };
 
   onPostReportError = (error) => {
     console.error(error);
-    this.snackbar.open(
-      'Error reporting post (did you already report it?)',
-      'Dismiss',
-      { duration: 2000 }
+    this.uiService.snackbar(
+      'Error reporting post (did you already report it?)'
     );
   };
 
@@ -83,7 +76,7 @@ export class ViewComponent implements OnInit {
 
   onPostError = (error) => {
     console.error(error);
-    this.postError = 'Error loading post';
+    this.uiService.snackbar('Error loading post');
     return of(undefined);
   };
 
