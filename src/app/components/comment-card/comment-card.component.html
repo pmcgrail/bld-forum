@@ -2,4 +2,28 @@
   <app-user-tag class="user" [userId]="comment.userId"></app-user-tag>
   <div class="date">{{ comment.createdDate | date: 'MMM, d yyyy h:mm a' }}</div>
   <p class="text">{{ comment.text }}</p>
+  <div class="actions" [matMenuTriggerFor]="actions">
+    <i class="material-icons">more_horiz</i>
+  </div>
 </div>
+
+<mat-menu #actions="matMenu">
+  <button *ngIf="owner" mat-menu-item [matMenuTriggerFor]="deleteConfirm">
+    Delete
+  </button>
+  <button *ngIf="!owner" mat-menu-item [matMenuTriggerFor]="reportConfirm">
+    Report
+  </button>
+</mat-menu>
+
+<mat-menu #deleteConfirm="matMenu">
+  <button mat-menu-item disabled>Are you sure? (cannot be undone)</button>
+  <button mat-menu-item (click)="onDelete()">Yes</button>
+  <button mat-menu-item>No</button>
+</mat-menu>
+
+<mat-menu #reportConfirm="matMenu">
+  <button mat-menu-item disabled>Are you sure?</button>
+  <button mat-menu-item (click)="onReport()">Yes</button>
+  <button mat-menu-item>No</button>
+</mat-menu>

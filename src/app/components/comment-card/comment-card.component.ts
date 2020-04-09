@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IComment } from 'src/app/models';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { take } from 'rxjs/operators';
+
+import { IComment, IUser } from 'src/app/models';
+import { AuthService } from 'src/app/providers';
 
 @Component({
   selector: 'app-comment-card',
@@ -7,10 +10,26 @@ import { IComment } from 'src/app/models';
   styleUrls: ['./comment-card.component.scss'],
 })
 export class CommentCardComponent implements OnInit {
-  @Input()
-  comment: IComment;
+  @Input() comment: IComment;
 
-  constructor() {}
+  owner = false;
 
-  ngOnInit(): void {}
+  @Output() delete: EventEmitter<null> = new EventEmitter();
+  @Output() report: EventEmitter<null> = new EventEmitter();
+
+  constructor(private auth: AuthService) {
+    this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
+      this.owner = this.comment.userId === authUser.uid;
+    });
+  }
+
+  onDelete() {
+    this.delete.emit();
+  }
+
+  onReport() {
+    this.report.emit();
+  }
+
+  ngOnInit() {}
 }

@@ -165,6 +165,38 @@ export class ViewComponent implements OnInit {
     return of([]);
   };
 
+  deleteComment(commentId) {
+    this.commentService
+      .deleteComment(this.postId, commentId)
+      .then(this.onCommentDeleteSuccess, this.onCommentDeleteError);
+  }
+
+  onCommentDeleteSuccess = () => {};
+
+  onCommentDeleteError = (error) => {
+    console.error(error);
+    this.postError = 'Error removing comment';
+  };
+
+  reportComment(commentId) {
+    this.reportService
+      .reportComment(commentId, this.authId)
+      .then(this.onCommentReportSuccess, this.onPostReportError);
+  }
+
+  onCommentReportSuccess = () => {
+    this.snackbar.open('Comment reported', 'Dismiss', { duration: 2000 });
+  };
+
+  onCommentReportError = (error) => {
+    console.error(error);
+    this.snackbar.open(
+      'Error reporting comment (did you already report it?)',
+      'Dismiss',
+      { duration: 2000 }
+    );
+  };
+
   ngOnInit() {
     this.post$ = this.service
       .getPost(this.postId)

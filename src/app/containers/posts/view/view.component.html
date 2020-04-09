@@ -6,7 +6,11 @@
   </app-post-card>
   <div *ngIf="comments$ | async as comments; else noComments">
     <ng-container *ngFor="let comment of comments">
-      <app-comment-card [comment]="comment"></app-comment-card>
+      <app-comment-card
+        [comment]="comment"
+        (delete)="deleteComment(comment.uid)"
+        (report)="reportComment(comment.uid)"
+      ></app-comment-card>
     </ng-container>
   </div>
   <div class="pagination" *ngIf="pages && !commentsError">

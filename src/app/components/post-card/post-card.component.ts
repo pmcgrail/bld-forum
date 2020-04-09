@@ -17,18 +17,18 @@ export class PostCardComponent implements OnInit {
 
   owner = false;
 
+  constructor(private auth: AuthService) {
+    this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
+      this.owner = this.post.userId === authUser.uid;
+    });
+  }
+
   onDelete() {
     this.delete.emit();
   }
 
   onReport() {
     this.report.emit();
-  }
-
-  constructor(private auth: AuthService) {
-    this.auth.user$.pipe(take(1)).subscribe((authUser: IUser) => {
-      this.owner = this.post.userId === authUser.uid;
-    });
   }
 
   ngOnInit() {}

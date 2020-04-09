@@ -1,6 +1,7 @@
 .container {
   padding: 2em;
   margin: 1em 0;
+  position: relative;
   border-radius: 0.25em;
   background: #ffffff;
 
@@ -15,7 +16,7 @@
 
   .date {
     grid-area: date;
-    
+
     text-align: end;
     color: #a0a0a0;
     font-size: 0.8em;
@@ -27,5 +28,22 @@
 
     margin: 1em 0 0;
     color: #404040;
+  }
+
+  .actions {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    color: #a0a0a0;
+    cursor: pointer;
+
+    &:hover {
+      color: #404040;
+    }
+
+    @media screen and (min-width: 768px) {
+      bottom: 1em;
+      right: 2em;
+    }
   }
 }

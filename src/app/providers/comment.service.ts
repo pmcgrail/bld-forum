@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  CollectionReference,
+  DocumentChangeAction,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
@@ -7,13 +11,15 @@ import * as firebase from 'firebase/app';
 import { IComment } from '../models';
 import { MAX_COMMENTS } from '../data';
 
-const mapSortDates = (comments: any[]) => {
+const mapSortDates = (comments: DocumentChangeAction<any>[]) => {
   return comments
-    .map((comment: any) => {
-      const createdDate = comment.createdDate.toDate();
+    .map((comment: DocumentChangeAction<any>) => {
+      const data = comment.payload.doc.data();
+      const createdDate = data.createdDate.toDate();
       return {
-        ...comment,
+        ...data,
         createdDate,
+        uid: comment.payload.doc.id,
       };
     })
     .sort((a, b) => a.createdDate - b.createdDate);
@@ -40,8 +46,8 @@ export class CommentService {
     return this.fireStore
       .collection('posts')
       .doc(postId)
-      .collection<IComment[]>('comments', pagedQuery)
-      .valueChanges()
+      .collection('comments', pagedQuery)
+      .snapshotChanges()
       .pipe(map(mapSortDates));
   }
 
@@ -63,5 +69,14 @@ export class CommentService {
       .collection('comments')
       .add(comment)
       .then(updatePost);
+  }
+
+  deleteComment(postId: string, commentId: string) {
+    return this.fireStore
+      .collection('posts')
+      .doc(postId)
+      .collection('comments')
+      .doc(commentId)
+      .delete();
   }
 }

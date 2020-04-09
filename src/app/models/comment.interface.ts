@@ -1,7 +1,8 @@
 export interface IComment {
-  uid?: string;
+  uid?: string; //dynamically added
+  userName?: string; //dynamically added
+
   text: string;
   userId: string;
   createdDate: Date;
-  userName?: string;
 }

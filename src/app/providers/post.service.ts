@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  CollectionReference,
+  DocumentChangeAction,
+} from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IPost } from '../models';
 import { MAX_POSTS, MAX_DATE } from '../data';
 
-const mapSortDates = (posts: any[]) => {
+const mapSortDates = (posts: DocumentChangeAction<any>[]) => {
   return posts
-    .map((post) => {
+    .map((post: DocumentChangeAction<any>) => {
       const data = post.payload.doc.data();
       const createdDate = data.createdDate.toDate();
       const lastActionDate = data.lastActionDate.toDate();
