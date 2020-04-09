@@ -40,15 +40,17 @@
 - [x] firebase permissions
 - [x] limit categories
 - 0.2.0
-- [ ] delete own posts and comments
+- [x] delete own posts and comments
+  - [ ] decrease post's commentCounter
+- [x] report posts and comments
 - [ ] remove test category
 - [x] fix nav header
+- [ ] snackbar success/error
 - 0.3.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
 - 0.4.0
-- [ ] report posts and comments
 - [ ] edit posts and comments
 - 1.0.0
 - [ ] member approvals
