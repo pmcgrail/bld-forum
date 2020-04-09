@@ -3,9 +3,8 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../providers/auth.service';
+import { AuthService, UserService, UIStateService } from '../../providers';
 import { IUser } from 'src/app/models';
-import { UserService } from 'src/app/providers';
 import { DISTRICTS } from 'src/app/data';
 
 @Component({
@@ -18,7 +17,6 @@ export class ProfileComponent implements OnInit {
   authUser$: Observable<IUser>;
   districts: string[] = DISTRICTS;
 
-  userError = false;
   userLoading = false;
 
   form = new FormGroup({
@@ -30,7 +28,11 @@ export class ProfileComponent implements OnInit {
     ]),
   });
 
-  constructor(private auth: AuthService, private service: UserService) {
+  constructor(
+    private auth: AuthService,
+    private service: UserService,
+    private uiService: UIStateService
+  ) {
     this.authUser$ = this.auth.user$;
     this.authUser$.pipe(take(1)).subscribe((auth: IUser) => {
       this.authId = auth.uid;
@@ -45,17 +47,17 @@ export class ProfileComponent implements OnInit {
 
   onSaveUserLoad = () => {
     this.userLoading = true;
-    this.userError = false;
   };
 
   onSaveUserSuccess = () => {
     this.userLoading = false;
+    this.uiService.snackbar('User info saved');
     this.form.markAsPristine();
   };
 
   onSaveUserError = () => {
     this.userLoading = false;
-    this.userError = true;
+    this.uiService.snackbar('Error saving user info');
   };
 
   saveUserInfo() {
