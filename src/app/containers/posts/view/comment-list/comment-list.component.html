@@ -1,0 +1,29 @@
+<div *ngIf="comments$ | async as comments; else noComments">
+  <ng-container *ngFor="let comment of comments">
+    <app-comment-card
+      [comment]="comment"
+      (delete)="deleteComment(comment.uid)"
+      (report)="reportComment(comment.uid)"
+    ></app-comment-card>
+  </ng-container>
+</div>
+<div class="pagination" *ngIf="pages && !commentsError">
+  <app-pagination
+    [max]="pages"
+    (prev)="loadPrevComments()"
+    (next)="loadNextComments()"
+  >
+  </app-pagination>
+</div>
+
+<ng-template #noComments>
+  <ng-container [ngSwitch]="commentsLoading">
+    <mat-progress-bar *ngSwitchCase="true" mode="indeterminate">
+    </mat-progress-bar>
+    <ng-container *ngSwitchCase="false">
+      <div class="comments-empty" [ngClass]="{ error: commentsError }">
+        {{ commentsError ? 'Error loading comments' : 'No comments yet' }}
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>

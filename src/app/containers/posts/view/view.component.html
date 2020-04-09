@@ -4,32 +4,12 @@
 <div *ngIf="post$ | async as post; else noPost">
   <app-post-card [post]="post" (delete)="deletePost()" (report)="reportPost()">
   </app-post-card>
-  <div *ngIf="comments$ | async as comments; else noComments">
-    <ng-container *ngFor="let comment of comments">
-      <app-comment-card
-        [comment]="comment"
-        (delete)="deleteComment(comment.uid)"
-        (report)="reportComment(comment.uid)"
-      ></app-comment-card>
-    </ng-container>
-  </div>
-  <div class="pagination" *ngIf="pages && !commentsError">
-    <app-pagination
-      [max]="pages"
-      (prev)="loadPrevComments()"
-      (next)="loadNextComments()"
-    >
-    </app-pagination>
-  </div>
-  <div>
-    <app-comment-form
-      [textControl]="commentText"
-      [error]="saveCommentError"
-      [loading]="saveCommentLoading"
-      (saveComment)="saveComment()"
-    >
-    </app-comment-form>
-  </div>
+  <app-comment-list
+    [pages]="pages"
+    [authId]="authId"
+    [postId]="postId"
+  ></app-comment-list>
+  <app-comment-form [authId]="authId" [postId]="postId"> </app-comment-form>
 </div>
 
 <ng-template #noPost>
@@ -37,17 +17,5 @@
     <div *ngSwitchCase="true" class="post-error">{{ postError }}</div>
     <mat-progress-bar *ngSwitchCase="false" mode="indeterminate">
     </mat-progress-bar>
-  </ng-container>
-</ng-template>
-
-<ng-template #noComments>
-  <ng-container [ngSwitch]="commentsLoading">
-    <mat-progress-bar *ngSwitchCase="true" mode="indeterminate">
-    </mat-progress-bar>
-    <ng-container *ngSwitchCase="false">
-      <div class="comments-empty" [ngClass]="{ error: commentsError }">
-        {{ commentsError ? 'Error loading comments' : 'No comments yet' }}
-      </div>
-    </ng-container>
   </ng-container>
 </ng-template>
