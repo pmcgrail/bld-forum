@@ -49,6 +49,7 @@
 - [x] remove test category
 - 0.3.0
 - [x] fix fb auth on mobile
+- [ ] update readme
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
@@ -65,3 +66,8 @@
 - code improvements
   - [ ] reusable buttons, etc.
   - [ ] move privacy strings to configs
+
+##### Testers
+
+Alpha: Marc, JC, Jesse, Matt, Paolo
+Beta: BLD Newark Singles Ministry
