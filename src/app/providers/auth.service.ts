@@ -36,6 +36,7 @@ export class AuthService {
               })
             );
         } else {
+          this.loading$.next(false);
           return of(null);
         }
       })
