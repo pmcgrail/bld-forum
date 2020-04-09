@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
-import { CommentService } from 'src/app/providers';
+import { CommentService, UIStateService } from 'src/app/providers';
 import { COMMENT_MIN, COMMENT_MAX } from 'src/app/data';
 import { IComment } from 'src/app/models';
 
@@ -15,7 +15,6 @@ export class CommentFormComponent implements OnInit {
   @Input() postId: string;
 
   expand = false;
-  error: boolean;
   loading: boolean;
 
   textControl = new FormControl('', [
@@ -24,7 +23,10 @@ export class CommentFormComponent implements OnInit {
     Validators.maxLength(COMMENT_MAX),
   ]);
 
-  constructor(private service: CommentService) {}
+  constructor(
+    private service: CommentService,
+    private uiService: UIStateService
+  ) {}
 
   validateInput() {
     return (
@@ -35,31 +37,27 @@ export class CommentFormComponent implements OnInit {
   }
 
   saveComment() {
+    this.loading = true;
     const data: IComment = {
       text: this.textControl.value,
       userId: this.authId,
       createdDate: new Date(),
     };
-    this.onSaveComment();
     this.service
       .createComment(this.postId, data)
       .then(this.onSaveCommentSuccess, this.onSaveCommentError);
   }
 
-  onSaveComment = () => {
-    this.loading = true;
-    this.error = false;
-  };
-
   onSaveCommentSuccess = () => {
     this.loading = false;
     this.textControl.reset();
+    this.uiService.snackbar('Comment saved');
   };
 
   onSaveCommentError = (error) => {
     console.error(error);
     this.loading = false;
-    this.error = true;
+    this.uiService.snackbar('Error saving comment');
   };
 
   ngOnInit() {}

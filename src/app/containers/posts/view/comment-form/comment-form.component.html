@@ -1,14 +1,15 @@
 <div class="container">
-  <div *ngIf="error" class="error">Error saving comment</div>
   <textarea
     type="text"
+    placeholder="Comment"
     [formControl]="textControl"
     [ngClass]="{ expand: expand, required: validateInput() }"
-  ></textarea>
+  >
+  </textarea>
   <button
     class="save"
     [disabled]="!textControl.valid || loading"
-    (click)="onSaveComment()"
+    (click)="saveComment()"
   >
     <i class="material-icons">keyboard_arrow_right</i>
   </button>
