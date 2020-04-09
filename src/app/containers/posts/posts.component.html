@@ -1,11 +1,13 @@
 <list-base *ngIf="categories$ | async as categories; else noCategories">
-  <list-item
-    *ngFor="let category of categories"
-    [link]="'posts/' + category.name"
-    [text]="category.name"
-  >
-    <span class="description">{{ category.description }}</span>
-  </list-item>
+  <ng-container *ngFor="let category of categories">
+    <list-item
+      *ngIf="category.order > 0"
+      [link]="'posts/' + category.name"
+      [text]="category.name"
+    >
+      <span class="description">{{ category.description }}</span>
+    </list-item>
+  </ng-container>
 </list-base>
 
 <ng-template #noCategories>
