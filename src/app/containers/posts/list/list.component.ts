@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-import { PostService } from '../../../providers';
+import { PostService, UIStateService } from '../../../providers';
 import { IPost } from '../../../models';
 import { MAX_POSTS } from 'src/app/data';
 
@@ -17,10 +17,13 @@ export class ListComponent implements OnInit {
   finished = false;
   hasPosts = false;
   category: string;
-  postsError = false;
   posts: Observable<IPost[]>[] = [];
 
-  constructor(private route: ActivatedRoute, private service: PostService) {
+  constructor(
+    private route: ActivatedRoute,
+    private service: PostService,
+    private uiService: UIStateService
+  ) {
     this.category = this.route.snapshot.params['category'];
   }
 
@@ -46,8 +49,8 @@ export class ListComponent implements OnInit {
 
   onPostsError = (error) => {
     console.error(error);
-    this.postsError = true;
-    return of([]);
+    this.uiService.snackbar('Error loading posts');
+    return of(undefined);
   };
 
   ngOnInit() {

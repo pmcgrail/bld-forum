@@ -27,7 +27,6 @@
 </div>
 
 <div *ngIf="finished && !hasPosts" class="no-posts">No posts yet</div>
-<div *ngIf="postsError" class="no-posts error">Error loading posts</div>
 
 <ng-template #loading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
