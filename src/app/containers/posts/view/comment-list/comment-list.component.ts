@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { IComment } from 'src/app/models';
-import { CommentService, ReportService } from 'src/app/providers';
+import {
+  CommentService,
+  ReportService,
+  UIStateService,
+} from 'src/app/providers';
 
 @Component({
   selector: 'app-comment-list',
@@ -18,25 +21,27 @@ export class CommentListComponent implements OnInit {
 
   end: Date;
   start: Date;
-
-  commentsError = false;
-  commentsLoading = false;
   comments$: Observable<IComment[]>;
 
   constructor(
     private service: CommentService,
     private reportService: ReportService,
-    private snackbar: MatSnackBar
+    private uiService: UIStateService
   ) {}
 
-  onCommentsLoading = () => {
-    this.commentsLoading = true;
-    this.commentsError = false;
-  };
+  loadPrevComments() {
+    this.comments$ = this.service
+      .getComments(this.postId, false, this.start)
+      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
+  }
+
+  loadNextComments() {
+    this.comments$ = this.service
+      .getComments(this.postId, true, this.end)
+      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
+  }
 
   onCommentsLoaded = (comments: IComment[]) => {
-    this.commentsLoading = false;
-    this.commentsError = false;
     if (comments.length) {
       this.start = comments[0].createdDate;
       this.end = comments[comments.length - 1].createdDate;
@@ -45,24 +50,9 @@ export class CommentListComponent implements OnInit {
 
   onCommentsError = (error) => {
     console.error(error);
-    this.commentsLoading = false;
-    this.commentsError = true;
-    return of([]);
+    this.uiService.snackbar('Error loading comments');
+    return of(undefined);
   };
-
-  loadPrevComments() {
-    this.onCommentsLoading();
-    this.comments$ = this.service
-      .getComments(this.postId, false, this.start)
-      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
-  }
-
-  loadNextComments() {
-    this.onCommentsLoading();
-    this.comments$ = this.service
-      .getComments(this.postId, true, this.end)
-      .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));
-  }
 
   deleteComment(commentId) {
     this.service
@@ -70,10 +60,13 @@ export class CommentListComponent implements OnInit {
       .then(this.onCommentDeleteSuccess, this.onCommentDeleteError);
   }
 
-  onCommentDeleteSuccess = () => {};
+  onCommentDeleteSuccess = () => {
+    this.uiService.snackbar('Comment deleted');
+  };
 
   onCommentDeleteError = (error) => {
     console.error(error);
+    this.uiService.snackbar('Error deleting comment');
   };
 
   reportComment(commentId) {
@@ -83,20 +76,17 @@ export class CommentListComponent implements OnInit {
   }
 
   onCommentReportSuccess = () => {
-    this.snackbar.open('Comment reported', 'Dismiss', { duration: 2000 });
+    this.uiService.snackbar('Comment reported');
   };
 
   onCommentReportError = (error) => {
     console.error(error);
-    this.snackbar.open(
-      'Error reporting comment (did you already report it?)',
-      'Dismiss',
-      { duration: 2000 }
+    this.uiService.snackbar(
+      'Error reporting comment (did you already report it?)'
     );
   };
 
   ngOnInit() {
-    this.onCommentsLoading();
     this.comments$ = this.service
       .getComments(this.postId)
       .pipe(tap(this.onCommentsLoaded), catchError(this.onCommentsError));

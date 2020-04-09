@@ -6,8 +6,9 @@
       (report)="reportComment(comment.uid)"
     ></app-comment-card>
   </ng-container>
+  <div *ngIf="!comments?.length" class="comments-empty">No comments yet</div>
 </div>
-<div class="pagination" *ngIf="pages && !commentsError">
+<div class="pagination" *ngIf="pages">
   <app-pagination
     [max]="pages"
     (prev)="loadPrevComments()"
@@ -17,13 +18,5 @@
 </div>
 
 <ng-template #noComments>
-  <ng-container [ngSwitch]="commentsLoading">
-    <mat-progress-bar *ngSwitchCase="true" mode="indeterminate">
-    </mat-progress-bar>
-    <ng-container *ngSwitchCase="false">
-      <div class="comments-empty" [ngClass]="{ error: commentsError }">
-        {{ commentsError ? 'Error loading comments' : 'No comments yet' }}
-      </div>
-    </ng-container>
-  </ng-container>
+  <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
 </ng-template>
