@@ -43,19 +43,22 @@
 - [x] delete own posts and comments
   - [x] decrease post's commentCounter
 - [x] report posts and comments
-- [ ] remove test category
 - [x] fix nav header
-- [ ] snackbar success/error
+- [x] snackbar success/error
+- [x] split comment list into components
+- [x] remove test category
 - 0.3.0
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
-- 0.4.0
-- [ ] edit posts and comments
 - 1.0.0
-- [ ] member approvals
-- [ ] hover user overlay
-- [ ] split comment list into components
-- [ ] reusable buttons, etc.
-- [ ] admin functions
-- [ ] image uploads
+
+- features
+  - [ ] member approvals
+  - [ ] edit posts and comments
+  - [ ] hover user overlay
+  - [ ] admin functions
+  - [ ] image uploads
+  - [ ] nav header shadow style
+- code improvements
+  - [ ] reusable buttons, etc.
