@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { ICategory } from '../../models';
-import { CategoryService } from 'src/app/providers/category.service';
+import { CategoryService, UIStateService } from 'src/app/providers';
 
 @Component({
   selector: 'app-posts',
@@ -11,14 +11,16 @@ import { CategoryService } from 'src/app/providers/category.service';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  categoriesError = false;
   categories$: Observable<ICategory[]>;
 
-  constructor(private service: CategoryService) {}
+  constructor(
+    private service: CategoryService,
+    private uiService: UIStateService
+  ) {}
 
   onCategoriesError = (error) => {
     console.error(error);
-    this.categoriesError = true;
+    this.uiService.snackbar('Error loading categories');
     return of(undefined);
   };
 
