@@ -41,7 +41,7 @@
 - [x] limit categories
 - 0.2.0
 - [x] delete own posts and comments
-  - [ ] decrease post's commentCounter
+  - [x] decrease post's commentCounter
 - [x] report posts and comments
 - [ ] remove test category
 - [x] fix nav header

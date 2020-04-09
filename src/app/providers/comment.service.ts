@@ -72,11 +72,22 @@ export class CommentService {
   }
 
   deleteComment(postId: string, commentId: string) {
+    const updatePost = () => {
+      this.fireStore
+        .collection('posts')
+        .doc(postId)
+        .set(
+          { commentCounter: firebase.firestore.FieldValue.increment(-1) },
+          { merge: true }
+        );
+    };
+
     return this.fireStore
       .collection('posts')
       .doc(postId)
       .collection('comments')
       .doc(commentId)
-      .delete();
+      .delete()
+      .then(updatePost);
   }
 }
