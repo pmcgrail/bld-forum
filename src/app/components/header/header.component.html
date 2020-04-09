@@ -1,6 +1,7 @@
 <div *ngIf="enableHeader$ | async" class="container">
-  <ng-container *ngFor="let tab of TABS">
+  <ng-container *ngFor="let tab of tabs">
     <div
+      *ngIf="!tab.private || loggedIn"
       class="tab"
       [ngClass]="{ selected: tab.key === (selectedTab$ | async) }"
     >

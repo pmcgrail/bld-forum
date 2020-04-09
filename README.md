@@ -62,3 +62,4 @@
   - [ ] nav header shadow style
 - code improvements
   - [ ] reusable buttons, etc.
+  - [ ] move privacy strings to configs
