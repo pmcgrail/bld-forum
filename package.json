@@ -1,9 +1,9 @@
 {
   "name": "bld-forum",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl --ssl-key C:\\Users\\mcgra\\localhost-key.pem --ssl-cert C:\\Users\\mcgra\\localhost.pem",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

@@ -11,9 +11,12 @@ import { IUser } from 'src/app/models';
 })
 export class HomeComponent implements OnInit {
   authUser$: Observable<IUser>;
+  loading$: Observable<boolean>;
 
   constructor(public auth: AuthService) {
+    this.auth.listenRedirect();
     this.authUser$ = this.auth.user$;
+    this.loading$ = this.auth.loading$;
   }
 
   loginFacebook() {

@@ -48,6 +48,7 @@
 - [x] split comment list into components
 - [x] remove test category
 - 0.3.0
+- [x] fix fb auth on mobile
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
@@ -60,6 +61,7 @@
   - [ ] admin functions
   - [ ] image uploads
   - [ ] nav header shadow style
+  - [ ] anonymous prayer intentions
 - code improvements
   - [ ] reusable buttons, etc.
   - [ ] move privacy strings to configs
