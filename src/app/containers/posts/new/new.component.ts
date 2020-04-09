@@ -3,10 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { PostService } from '../../../providers/post.service';
 import { IUser } from '../../../models/user.interface';
-import { AuthService } from '../../../providers/auth.service';
 import { IPost } from '../../../models';
+import { AuthService, PostService, UIStateService } from 'src/app/providers';
 
 import {
   POST_TITLE_MIN,
@@ -39,14 +38,14 @@ export class NewComponent implements OnInit {
   userId: string;
   category: string;
   userName: string;
-  postError = false;
   postLoading = false;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private service: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UIStateService
   ) {
     this.category = this.route.snapshot.params['category'];
     this.auth.user$.pipe(take(1)).subscribe((user: IUser) => {
@@ -72,18 +71,18 @@ export class NewComponent implements OnInit {
 
   onPostCreate = () => {
     this.postLoading = true;
-    this.postError = false;
   };
 
   onPostSuccess = () => {
     this.postLoading = false;
+    this.uiService.snackbar('Post saved');
     this.router.navigate([`/posts/${this.category}`]);
   };
 
   onPostError = (error) => {
     console.error(error);
     this.postLoading = false;
-    this.postError = true;
+    this.uiService.snackbar('Error saving post');
   };
 
   createPost() {
