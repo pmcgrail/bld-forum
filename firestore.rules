@@ -21,7 +21,8 @@ service cloud.firestore {
     
     match /categories/{categoryId} {
     	allow read: if isLoggedIn();
-      allow write: if false;
+      allow update: if canUpdateCategoryMetadata();
+      allow create, delete: if false;
     }
 
     match /report_posts/{uid} {
@@ -44,6 +45,13 @@ service cloud.firestore {
         && fieldUnchanged('createdDate')
         && fieldUnchanged('linkType')
         && fieldUnchanged('url');
+    }
+
+    function canUpdateCategoryMetadata() {
+      return isLoggedIn()
+        && fieldUnchanged('name')
+        && fieldUnchanged('order')
+        && fieldUnchanged('description');
     }
 
     function fieldUnchanged(key) {
