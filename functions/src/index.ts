@@ -72,7 +72,7 @@ export const postDailyReadings = functions
       .collection('posts')
       .add(dailyReadingsPost)
       .then(() => {
-        incrementPostCount(category);
+        return incrementPostCount(category);
       });
   });
 
@@ -105,6 +105,6 @@ export const postWeeklyPrayers = functions
       .collection('posts')
       .add(weeklyPrayerPost)
       .then(() => {
-        incrementPostCount(category);
+        return incrementPostCount(category);
       });
   });
