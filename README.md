@@ -49,6 +49,8 @@
 - [x] remove test category
 - 0.3.0
 - [x] fix fb auth on mobile
+- [x] display line breaks in text
+- [x] post/comment counters
 - [ ] update readme
 - [ ] staging/prod environments
 - [ ] unit tests
