@@ -37,7 +37,7 @@ export class ViewComponent implements OnInit {
 
   deletePost() {
     this.service
-      .deletePost(this.postId)
+      .deletePost(this.postId, this.category)
       .then(this.onPostDeleteSuccess, this.onPostDeleteError);
   }
 

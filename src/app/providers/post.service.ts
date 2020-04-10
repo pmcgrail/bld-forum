@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase/app';
+
 import {
   AngularFirestore,
   CollectionReference,
   DocumentChangeAction,
 } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 import { IPost } from '../models';
 import { MAX_POSTS, MAX_DATE } from '../data';
@@ -66,14 +68,42 @@ export class PostService {
   }
 
   createPost(post: IPost) {
+    const updateCategory = () => {
+      this.fireStore
+        .collection('categories')
+        .doc(post.category)
+        .set(
+          {
+            postCounter: firebase.firestore.FieldValue.increment(1),
+          },
+          { merge: true }
+        );
+    };
+
     const data = {
       ...post,
       lastActionDate: post.createdDate,
     };
-    return this.fireStore.collection('posts').add(data);
+    return this.fireStore.collection('posts').add(data).then(updateCategory);
   }
 
-  deletePost(postId: string) {
-    return this.fireStore.collection('posts').doc(postId).delete();
+  deletePost(postId: string, category: string) {
+    const updateCategory = () => {
+      this.fireStore
+        .collection('categories')
+        .doc(category)
+        .set(
+          {
+            postCounter: firebase.firestore.FieldValue.increment(-1),
+          },
+          { merge: true }
+        );
+    };
+
+    return this.fireStore
+      .collection('posts')
+      .doc(postId)
+      .delete()
+      .then(updateCategory);
   }
 }

@@ -3,7 +3,7 @@
     <list-item
       *ngIf="category.order > 0"
       [link]="'posts/' + category.name"
-      [text]="category.name"
+      [text]="category.name + getPostCount(category)"
     >
       <span class="description">{{ category.description }}</span>
     </list-item>

@@ -18,6 +18,10 @@ export class PostsComponent implements OnInit {
     private uiService: UIStateService
   ) {}
 
+  getPostCount(category: ICategory) {
+    return ` (${category.postCounter ? category.postCounter : 0})`;
+  }
+
   onCategoriesError = (error) => {
     console.error(error);
     this.uiService.snackbar('Error loading categories');

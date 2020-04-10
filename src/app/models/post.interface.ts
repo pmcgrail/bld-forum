@@ -7,6 +7,7 @@ export class IPost {
   text: string;
   title: string;
   userId: string;
+  category: string;
   createdDate: Date;
   lastActionDate?: Date;
   commentCounter?: number;
