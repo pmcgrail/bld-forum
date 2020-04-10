@@ -27,6 +27,10 @@ export class ListComponent implements OnInit {
     this.category = this.route.snapshot.params['category'];
   }
 
+  getCommentCount(post: IPost) {
+    return post.commentCounter ? ` (${post.commentCounter})` : '';
+  }
+
   loadMore() {
     this.posts = [
       ...this.posts,
