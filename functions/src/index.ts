@@ -26,6 +26,19 @@ function getDateStrings(dateObj: Date) {
   return { month, date, year, fullMonth, fullDate, fullYear };
 }
 
+async function incrementPostCount(category: string) {
+  await admin
+    .firestore()
+    .collection('categories')
+    .doc(category)
+    .set(
+      {
+        postCounter: admin.firestore.FieldValue.increment(1),
+      },
+      { merge: true }
+    );
+}
+
 export const postDailyReadings = functions
   .region(REGION)
   .pubsub.schedule('0 6 * * *')
@@ -54,7 +67,13 @@ export const postDailyReadings = functions
       text,
     };
 
-    await admin.firestore().collection('posts').add(dailyReadingsPost);
+    await admin
+      .firestore()
+      .collection('posts')
+      .add(dailyReadingsPost)
+      .then(() => {
+        incrementPostCount(category);
+      });
   });
 
 export const postWeeklyPrayers = functions
@@ -81,5 +100,11 @@ export const postWeeklyPrayers = functions
       text,
     };
 
-    await admin.firestore().collection('posts').add(weeklyPrayerPost);
+    await admin
+      .firestore()
+      .collection('posts')
+      .add(weeklyPrayerPost)
+      .then(() => {
+        incrementPostCount(category);
+      });
   });
