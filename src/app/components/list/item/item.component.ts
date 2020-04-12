@@ -9,6 +9,7 @@ export class ItemComponent implements OnInit {
   @Input() link: string;
   @Input() text: string;
   @Input() subtext: string;
+  @Input() textNumber: number;
 
   constructor() {}
 

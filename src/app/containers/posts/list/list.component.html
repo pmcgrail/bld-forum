@@ -12,10 +12,8 @@
         *ngFor="let post of segment"
         [link]="'posts/' + category + '/view/' + post.uid"
         [text]="post.title"
-        [subtext]="
-          (post.lastActionDate | date: 'MMM, d yyyy h:mm a') +
-          getCommentCount(post)
-        "
+        [textNumber]="post.commentCounter"
+        [subtext]="post.lastActionDate | date: 'MMM, d yyyy h:mm a'"
       >
         <app-user-tag [userId]="post.userId"></app-user-tag>
       </list-item>

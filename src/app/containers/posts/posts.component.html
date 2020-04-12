@@ -3,10 +3,8 @@
   <list-item *ngFor="let post of latest"
     [link]="'posts/' + post.category + '/view/' + post.uid"
     [text]="post.title"
-    [subtext]="
-      (post.lastActionDate | date: 'MMM, d yyyy h:mm a') +
-      getCommentCount(post)
-    "
+    [textNumber]="post.commentCounter"
+    [subtext]="post.lastActionDate | date: 'MMM, d yyyy h:mm a'"
   >
     <app-user-tag [userId]="post.userId"></app-user-tag>
   </list-item>
@@ -18,7 +16,8 @@
     <list-item
       *ngIf="category.order > 0"
       [link]="'posts/' + category.name"
-      [text]="category.name + getPostCount(category)"
+      [text]="category.name"
+      [textNumber]="category.postCounter"
     >
       <span class="description">{{ category.description }}</span>
     </list-item>
