@@ -1,5 +1,10 @@
 # BLD Forum (Beta)
 
+## Version 0.3.3 (4/12/20)
+
+- Display latest posts
+- Add number icons
+
 ## Version 0.3.2 (4/10/20)
 
 - Display line-breaks in posts/comments

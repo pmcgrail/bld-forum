@@ -9,10 +9,10 @@ Connecting a global faith community via the web
 - Comment on posts with real-time updates
 - Daily/weekly posts generated automatically
 
-## Version 0.3.2 (4/10/20)
+## Version 0.3.3 (4/12/20)
 
-- Display line-breaks in posts/comments
-- Display post and comment counters
+- Display latest posts
+- Add number icons
 
 ## Technology Stack
 

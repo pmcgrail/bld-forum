@@ -52,13 +52,14 @@
 - [x] display line breaks in text
 - [x] post/comment counters
 - [x] update readme
+- [x] latest posts feed
+- [x] number icon component
 - [ ] staging/prod environments
 - [ ] unit tests
 - [ ] CI/CD
 - 1.0.0
 
 - features
-  - [ ] latest posts feed
   - [ ] view posts in profile
   - [ ] member approvals
   - [ ] edit posts and comments
@@ -70,3 +71,4 @@
 - code improvements
   - [ ] reusable buttons, etc.
   - [ ] move privacy strings to configs
+  - [ ] refactor list to use templates?
