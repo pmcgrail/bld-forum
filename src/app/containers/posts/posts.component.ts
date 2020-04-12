@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ICategory } from '../../models';
-import { CategoryService, UIStateService } from 'src/app/providers';
+import { ICategory, IPost } from '../../models';
+import {
+  CategoryService,
+  UIStateService,
+  PostService,
+} from 'src/app/providers';
 
 @Component({
   selector: 'app-posts',
@@ -11,25 +15,40 @@ import { CategoryService, UIStateService } from 'src/app/providers';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
+  latestPosts$: Observable<IPost[]>;
   categories$: Observable<ICategory[]>;
 
   constructor(
-    private service: CategoryService,
+    private postService: PostService,
+    private categoryService: CategoryService,
     private uiService: UIStateService
   ) {}
+
+  getCommentCount(post: IPost) {
+    return post.commentCounter ? ` (${post.commentCounter})` : '';
+  }
 
   getPostCount(category: ICategory) {
     return ` (${category.postCounter ? category.postCounter : 0})`;
   }
 
-  onCategoriesError = (error) => {
+  onLatestPostsError = error => {
+    console.error(error);
+    this.uiService.snackbar('Error loading latest posts');
+    return of(undefined);
+  };
+
+  onCategoriesError = error => {
     console.error(error);
     this.uiService.snackbar('Error loading categories');
     return of(undefined);
   };
 
   ngOnInit() {
-    this.categories$ = this.service.categories$.pipe(
+    this.latestPosts$ = this.postService
+      .getLatestPosts()
+      .pipe(catchError(this.onLatestPostsError));
+    this.categories$ = this.categoryService.categories$.pipe(
       catchError(this.onCategoriesError)
     );
   }

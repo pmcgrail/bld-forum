@@ -1,4 +1,19 @@
-<list-base *ngIf="categories$ | async as categories; else noCategories">
+<h1>Latest Posts</h1>
+<list-base *ngIf="latestPosts$ | async as latest; else loading">
+  <list-item *ngFor="let post of latest"
+    [link]="'posts/' + post.category + '/view/' + post.uid"
+    [text]="post.title"
+    [subtext]="
+      (post.lastActionDate | date: 'MMM, d yyyy h:mm a') +
+      getCommentCount(post)
+    "
+  >
+    <app-user-tag [userId]="post.userId"></app-user-tag>
+  </list-item>
+</list-base>
+
+<h1>Post Categories</h1>
+<list-base *ngIf="categories$ | async as categories; else loading">
   <ng-container *ngFor="let category of categories">
     <list-item
       *ngIf="category.order > 0"
@@ -10,6 +25,6 @@
   </ng-container>
 </list-base>
 
-<ng-template #noCategories>
+<ng-template #loading>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>

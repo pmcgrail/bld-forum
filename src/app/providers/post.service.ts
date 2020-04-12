@@ -49,6 +49,22 @@ export class PostService {
       .pipe(map(mapSortDates));
   }
 
+  getLatestPosts(): Observable<IPost[]> {
+    return this.fireStore
+      .collection('posts', ref => ref.orderBy('createdDate', 'desc').limit(5))
+      .snapshotChanges()
+      .pipe(map(mapSortDates));
+  }
+
+  getLatestActivity(): Observable<IPost[]> {
+    return this.fireStore
+      .collection('posts', ref =>
+        ref.orderBy('lastActionDate', 'desc').limit(5)
+      )
+      .snapshotChanges()
+      .pipe(map(mapSortDates));
+  }
+
   getPost(postId: string): Observable<IPost> {
     return this.fireStore
       .collection('posts')
@@ -84,7 +100,10 @@ export class PostService {
       ...post,
       lastActionDate: post.createdDate,
     };
-    return this.fireStore.collection('posts').add(data).then(updateCategory);
+    return this.fireStore
+      .collection('posts')
+      .add(data)
+      .then(updateCategory);
   }
 
   deletePost(postId: string, category: string) {
