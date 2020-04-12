@@ -58,6 +58,8 @@
 - 1.0.0
 
 - features
+  - [ ] latest posts feed
+  - [ ] view posts in profile
   - [ ] member approvals
   - [ ] edit posts and comments
   - [ ] hover user overlay
