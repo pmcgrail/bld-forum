@@ -16,6 +16,10 @@ li {
       color: #a0a0a0;
       font-size: 0.8rem;
       justify-self: right;
+
+      app-number-icon {
+        font-size: 1.2em;
+      }
     }
 
     &.no-subtext {

@@ -10,6 +10,7 @@ export class ItemComponent implements OnInit {
   @Input() text: string;
   @Input() subtext: string;
   @Input() textNumber: number;
+  @Input() subtextNumber: number;
 
   constructor() {}
 

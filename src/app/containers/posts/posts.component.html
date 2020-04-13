@@ -3,7 +3,7 @@
   <list-item *ngFor="let post of latest"
     [link]="'posts/' + post.category + '/view/' + post.uid"
     [text]="post.title"
-    [textNumber]="post.commentCounter"
+    [subtextNumber]="post.commentCounter"
     [subtext]="post.lastActionDate | date: 'MMM, d yyyy h:mm a'"
   >
     <app-user-tag [userId]="post.userId"></app-user-tag>
