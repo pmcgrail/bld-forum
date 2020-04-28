@@ -11,11 +11,17 @@
       <list-item
         *ngFor="let post of segment"
         [link]="'posts/' + category + '/view/' + post.uid"
-        [text]="post.title"
-        [subtextNumber]="post.commentCounter"
-        [subtext]="post.lastActionDate | date: 'MMM, d yyyy h:mm a'"
       >
-        <app-user-tag [userId]="post.userId"></app-user-tag>
+        <list-item-text listPrimary>{{ post.title }}</list-item-text>
+        <list-item-text listSecondary *ngIf="post.commentCounter">
+          {{ post.commentCounter }} comments
+        </list-item-text>
+        <list-item-text listMetaPrimary>
+          <app-user-tag [userId]="post.userId"></app-user-tag>
+        </list-item-text>
+        <list-item-text listMetaSecondary>
+          {{ post.lastActionDate | date: 'MMM, d yyyy h:mm a' }}
+        </list-item-text>
       </list-item>
     </ng-container>
   </ng-container>

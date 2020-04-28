@@ -7,10 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
   @Input() link: string;
-  @Input() text: string;
-  @Input() subtext: string;
-  @Input() textNumber: number;
-  @Input() subtextNumber: number;
 
   constructor() {}
 

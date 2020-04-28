@@ -32,13 +32,13 @@ export class PostsComponent implements OnInit {
     return ` (${category.postCounter ? category.postCounter : 0})`;
   }
 
-  onLatestPostsError = error => {
+  onLatestPostsError = (error) => {
     console.error(error);
     this.uiService.snackbar('Error loading latest posts');
     return of(undefined);
   };
 
-  onCategoriesError = error => {
+  onCategoriesError = (error) => {
     console.error(error);
     this.uiService.snackbar('Error loading categories');
     return of(undefined);
@@ -46,7 +46,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.latestPosts$ = this.postService
-      .getLatestPosts()
+      .getLatestActivity()
       .pipe(catchError(this.onLatestPostsError));
     this.categories$ = this.categoryService.categories$.pipe(
       catchError(this.onCategoriesError)

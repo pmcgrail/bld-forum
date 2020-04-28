@@ -1,25 +1,39 @@
-<h1>Latest Posts</h1>
+<h1>Latest Activity</h1>
 <list-base *ngIf="latestPosts$ | async as latest; else loading">
-  <list-item *ngFor="let post of latest"
+  <list-item
+    *ngFor="let post of latest"
     [link]="'posts/' + post.category + '/view/' + post.uid"
-    [text]="post.title"
-    [subtextNumber]="post.commentCounter"
-    [subtext]="post.lastActionDate | date: 'MMM, d yyyy h:mm a'"
   >
-    <app-user-tag [userId]="post.userId"></app-user-tag>
+    <list-item-text listPrimary>
+      {{ post.title }}
+    </list-item-text>
+    <list-item-text listSecondary *ngIf="post.commentCounter">
+      {{ post.commentCounter }} comments
+    </list-item-text>
+    <list-item-text listMetaPrimary>
+      <app-user-tag [userId]="post.userId">
+        in {{ post.category }}
+      </app-user-tag>
+    </list-item-text>
+    <list-item-text listMetaSecondary>
+      {{ post.lastActionDate | date: 'MMM, d yyyy h:mm a' }}
+    </list-item-text>
   </list-item>
 </list-base>
 
 <h1>Post Categories</h1>
 <list-base *ngIf="categories$ | async as categories; else loading">
   <ng-container *ngFor="let category of categories">
-    <list-item
-      *ngIf="category.order > 0"
-      [link]="'posts/' + category.name"
-      [text]="category.name"
-      [textNumber]="category.postCounter"
-    >
-      <span class="description">{{ category.description }}</span>
+    <list-item *ngIf="category.order > 0" [link]="'posts/' + category.name">
+      <list-item-text listPrimary>
+        {{ category.name }}
+      </list-item-text>
+      <list-item-text listSecondary>
+        {{ category.description }}
+      </list-item-text>
+      <list-item-text listMetaSecondary *ngIf="category.postCounter">
+        {{ category.postCounter }} posts
+      </list-item-text>
     </list-item>
   </ng-container>
 </list-base>

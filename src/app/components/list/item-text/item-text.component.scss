@@ -1,0 +1,41 @@
+:host.primary {
+  grid-area: primary;
+
+  display: flex;
+  color: #404040;
+  font-size: 1.2rem;
+  margin-top: 0.25em;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 0;
+  }
+}
+
+:host.secondary {
+  grid-area: secondary;
+
+  color: #a0a0a0;
+  font-size: 0.8rem;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:host.meta-primary {
+  grid-area: meta-primary;
+
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:host.meta-secondary {
+  grid-area: meta-secondary;
+
+  color: #a0a0a0;
+  font-size: 0.8rem;
+  overflow-x: hidden;
+  white-space: nowrap;
+  justify-self: right;
+  text-overflow: ellipsis;
+}

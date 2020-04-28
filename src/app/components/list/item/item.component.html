@@ -1,7 +1,5 @@
 <li>
-  <a [ngClass]="subtext ? 'with-subtext' : 'no-subtext'" [href]="link">
-    <span class="text">{{ text }}<app-number-icon *ngIf="textNumber" [number]="textNumber"></app-number-icon></span>
+  <a [href]="link">
     <ng-content></ng-content>
-    <span class="subtext">{{ subtext }}<app-number-icon *ngIf="subtextNumber" [number]="subtextNumber"></app-number-icon></span>
   </a>
 </li>
