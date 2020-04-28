@@ -54,11 +54,18 @@
 - [x] update readme
 - [x] latest posts feed
 - [x] number icon component
-- [ ] staging/prod environments
+- [x] refactor list to use directives
+- [x] add category in latest posts
+- [x] replace number icon with text
+- [x] fix comment text ellipsis
+- [ ] staging/prod environments (https://codinglatte.com/posts/angular/separating-dev-and-prod-environment-on-firebase/)
 - [ ] unit tests
 - [ ] CI/CD
 - 1.0.0
 
+- ui
+  - [ ] make sections collapsible in /posts
+  - [ ] figure out links in comments
 - features
   - [ ] view posts in profile
   - [ ] member approvals
@@ -71,4 +78,3 @@
 - code improvements
   - [ ] reusable buttons, etc.
   - [ ] move privacy strings to configs
-  - [ ] refactor list to use templates?

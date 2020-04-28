@@ -7,19 +7,21 @@ Connecting a global faith community via the web
 - Login via Facebook with Firebase Auth
 - Posts organized into categories
 - Comment on posts with real-time updates
-- Daily/weekly posts generated automatically
+- Daily/weekly posts generated automatically with Firebase Functions
 
-## Version 0.3.3 (4/12/20)
+## Version 0.3.4 (4/28/20)
 
-- Display latest posts
-- Add number icons
+- Update list format and info displayed
+- Fix comment text ellipsisizing
 
 ## Technology Stack
 
 Angular/Firebase
 
-## Testers
+## Testers and Contributors
 
 Alpha: Marc, JC, Jesse, Matt, Paolo
 
-Beta: BLD Newark Singles Ministry
+Beta: BLD Singles Ministry
+
+UX: Jill

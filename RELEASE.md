@@ -1,5 +1,10 @@
 # BLD Forum (Beta)
 
+## Version 0.3.4 (4/28/20)
+
+- Update list format and info displayed
+- Fix comment text ellipsisizing
+
 ## Version 0.3.3 (4/12/20)
 
 - Display latest posts
